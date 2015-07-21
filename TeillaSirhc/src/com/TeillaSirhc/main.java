@@ -9,7 +9,8 @@ import java.nio.ByteBuffer;
 import org.lwjgl.glfw.GLFWvidmode;
 import org.lwjgl.opengl.GLContext;
 
-import com.graphics.Shader;
+import com.TeillaSirhc.graphics.Shader;
+import com.TeillaSirhc.level.Level;
 import com.graphics.input.Input;
 import com.graphics.math.Matrix4f;
 
@@ -22,11 +23,11 @@ public class main implements Runnable  {
 	
 	private long window;
 	
-	//private Level level;
+	private Level level;
 	
 	public void start() {
 		running = true;
-		thread = new Thread(this, "Game");
+		thread = new Thread(this, "Teilla Sirhc");
 		thread.start();
 	}
 	
@@ -68,7 +69,7 @@ public class main implements Runnable  {
 		}
 		
 		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-		window = glfwCreateWindow(width, height, "Flappy", NULL, NULL);
+		window = glfwCreateWindow(width, height, "Teilla Sirhc", NULL, NULL);
 		
 		ByteBuffer vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		int xpos = (GLFWvidmode.width(vidmode) - width) / 2;
@@ -82,7 +83,7 @@ public class main implements Runnable  {
 
 		GLContext.createFromCurrent();
 
-		glClearColor(0.0f,  0.0f,  1.0f, 1.0f);
+		glClearColor(1.0f,  1.0f,  1.0f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 		glActiveTexture(GL_TEXTURE1);
 		
@@ -93,30 +94,30 @@ public class main implements Runnable  {
 		//Shader.BG.enable();
 
 		Matrix4f pr_matrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * 9.0f / 16.0f, 10.f * 9.0f / 16.0f, -1.0f, 1.0f);
-		//Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
-		//Shader.BG.setUniform1i("tex", 1);
+		Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
+		Shader.BG.setUniform1i("tex", 1);
 		
-		//Shader.BIRD.setUniformMat4f("pr_matrix", pr_matrix);
-		//Shader.BIRD.setUniform1i("tex", 1);
+		Shader.SPRITE.setUniformMat4f("pr_matrix", pr_matrix);
+		Shader.SPRITE.setUniform1i("tex", 1);
 		
 		//Shader.PIPE.setUniformMat4f("pr_matrix", pr_matrix);
 		//Shader.PIPE.setUniform1i("tex", 1);
 		
-		//level = new Level();
+		level = new Level();
 		
 	}
 	
 	private void update() {
 		glfwPollEvents();
 		if(Input.keys[GLFW_KEY_SPACE]){
-			System.out.println("FLAP!");
+			System.out.println("SPACE!");
 		}
-		//level.update();
+		level.update();
 	}
 	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//level.render();
+		 level.render();
 		glfwSwapBuffers(window);
 	}
 	
