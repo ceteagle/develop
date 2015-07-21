@@ -13,19 +13,13 @@ public class Shader {
 
 	public static final int VERTEX_ATTRIB = 0;
 	public static final int TCOORD_ATTRIB = 1;
-	//public static Shader BG, BIRD, PIPE;	
+
 	private final int ID;
 	private Map<String,Integer> LocationCache = new HashMap<String, Integer>();
 	private boolean enabled = false;
 	
 	public Shader(String vertex, String fragment) {
 		ID = ShaderUtils.load(vertex, fragment);
-	}
-	
-	public static void loadAll() {
-		//BG = new Shader("shaders/bg.vert", "shaders/bg.frag");
-		//BIRD = new Shader("shaders/bird.vert", "shaders/bird.frag");
-		//PIPE = new Shader("shaders/pipe.vert", "shaders/pipe.frag");
 	}
 	
 	public int getUniform(String name) {
@@ -53,7 +47,7 @@ public class Shader {
 		glUniform1f(getUniform(name), value);	
 	}
 	
-	public void setUniform2fi(String name, float x, float y) {
+	public void setUniform2f(String name, float x, float y) {
 		if( !enabled) enable();
 		glUniform2f(getUniform(name), x, y);	
 	}
