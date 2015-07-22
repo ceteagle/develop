@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GLContext;
 import com.TeillaSirhc.graphics.Shader;
 import com.TeillaSirhc.level.Level;
 import com.graphics.input.Input;
+import com.graphics.input.Mouse;
+import com.graphics.input.MousePosition;
 import com.graphics.math.Matrix4f;
 
 public class main implements Runnable  {
@@ -77,6 +79,8 @@ public class main implements Runnable  {
 		glfwSetWindowPos(window, xpos, ypos);
 		
 		glfwSetKeyCallback(window, new Input());
+		glfwSetCursorPosCallback(window, new MousePosition());
+		glfwSetMouseButtonCallback(window, new Mouse());
 		
 		glfwMakeContextCurrent(window);
 		glfwShowWindow(window);
@@ -112,6 +116,7 @@ public class main implements Runnable  {
 		if(Input.keys[GLFW_KEY_SPACE]){
 			System.out.println("SPACE!");
 		}
+		
 		level.update();
 	}
 	
