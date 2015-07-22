@@ -15,6 +15,7 @@ public class MousePosition extends GLFWCursorPosCallback {
 	public static float getX() {
 		return x;
 	}
+	
 	public static float getY() {
 		return y;
 	}

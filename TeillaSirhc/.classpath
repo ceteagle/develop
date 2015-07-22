@@ -8,5 +8,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/C.Eric/Documents/eclipse workspace/libs/lwjgl/native"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/JavaGraphics"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
