@@ -77,7 +77,7 @@ public class Matrix4f {
 		}
 		return result;
 	}
-		
+	
 	public FloatBuffer toFloatbuffer() {
 		return BufferUtils.createFloatBuffer(elements);
 	}
