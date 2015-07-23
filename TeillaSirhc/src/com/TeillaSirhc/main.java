@@ -20,6 +20,13 @@ public class main implements Runnable  {
 	private int width = 1280;
 	private int height = 720;
 	
+	public static float VIEWPORT_LEFT = -10.0f;
+	public static float VIEWPORT_RIGHT = 10.0f;
+	public static float VIEWPORT_BOTTOM = -10.0f * 9.0f / 16.0f;
+	public static float VIEWPORT_TOP = 10.0f * 9.0f / 16.0f;
+	public static float VIEWPORT_NEAR = -1.0f;
+	public static float VIEWPORT_FAR = 1.0f;
+	
 	private Thread thread;
 	private boolean running = false;
 	
@@ -103,7 +110,7 @@ public class main implements Runnable  {
 		
 		//Shader.BG.enable();
 
-		Matrix4f pr_matrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * 9.0f / 16.0f, 10.f * 9.0f / 16.0f, -1.0f, 1.0f);
+		Matrix4f pr_matrix = Matrix4f.orthographic(VIEWPORT_LEFT, VIEWPORT_RIGHT, VIEWPORT_BOTTOM, VIEWPORT_TOP, VIEWPORT_NEAR, VIEWPORT_FAR);
 		Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
 		Shader.BG.setUniform1i("tex", 1);
 		
