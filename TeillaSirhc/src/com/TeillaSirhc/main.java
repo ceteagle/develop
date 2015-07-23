@@ -27,6 +27,12 @@ public class main implements Runnable  {
 	
 	private Level level;
 	
+	// Callbacks
+	private static Input input = new Input();
+	private static MousePosition mousePosition = new MousePosition();
+	private static Mouse mouse = new Mouse();
+	
+	
 	public void start() {
 		running = true;
 		thread = new Thread(this, "Teilla Sirhc");
@@ -78,9 +84,9 @@ public class main implements Runnable  {
 		int ypos = (GLFWvidmode.height(vidmode) - height) / 2;
 		glfwSetWindowPos(window, xpos, ypos);
 		
-		glfwSetKeyCallback(window, new Input());
-		glfwSetCursorPosCallback(window, new MousePosition());
-		glfwSetMouseButtonCallback(window, new Mouse());
+		glfwSetKeyCallback(window, input);
+		glfwSetCursorPosCallback(window, mousePosition);
+		glfwSetMouseButtonCallback(window, mouse);
 		
 		glfwMakeContextCurrent(window);
 		glfwShowWindow(window);
