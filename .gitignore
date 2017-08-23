@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/RW/RWLib/bin/Debug
+/RW/.vs/RW/v15
+/RW/RWApp/bin/Debug
+/RW/RWLib/obj
+/RW/RWApp/obj
+/.vs

@@ -8,7 +8,7 @@
             <Button Content="Save" ToolTip="Save database"/>
             <Button Content="Save As" ToolTip="Save database as"/>
             <Separator/>
-            <Button Content="+" ToolTip="Add new character"/>
+            <Button Content="+" ToolTip="Add new character" VerticalAlignment="Top" Click="Button_Click"/>
         </ToolBar>
         <Frame x:Name="Main" Margin="0,42,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>

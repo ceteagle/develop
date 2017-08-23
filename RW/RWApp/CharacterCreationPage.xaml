@@ -1,0 +1,28 @@
+﻿<Page x:Class="RWApp.CharacterCreationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RWApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="CharacterCreationPage">
+
+    <Grid>
+        <TextBox x:Name="animalsTextBox" HorizontalAlignment="Left" Height="23" Margin="240,54,0,0" TextWrapping="Wrap" Text="{Binding Path=Animals}" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="artisticTextBox" HorizontalAlignment="Left" Height="23" Margin="240,82,0,0" TextWrapping="Wrap" Text="{Binding Path=Artistic}" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="240,110,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="textBox_Copy2" HorizontalAlignment="Left" Height="23" Margin="240,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="textBox_Copy3" HorizontalAlignment="Left" Height="23" Margin="240,166,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="textBox_Copy4" HorizontalAlignment="Left" Height="23" Margin="240,194,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="textBox_Copy5" HorizontalAlignment="Left" Height="23" Margin="240,222,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <Label x:Name="label" Content="{Binding SkillType,StringFormat={}{0}}" HorizontalAlignment="Left" Margin="145,54,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy" Content="{Binding Path=Artistic}" HorizontalAlignment="Left" Margin="145,82,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy1" Content="Label" HorizontalAlignment="Left" Margin="145,110,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy2" Content="Label" HorizontalAlignment="Left" Margin="145,138,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy3" Content="Label" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy4" Content="Label" HorizontalAlignment="Left" Margin="145,194,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy5" Content="Label" HorizontalAlignment="Left" Margin="145,222,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Page>
