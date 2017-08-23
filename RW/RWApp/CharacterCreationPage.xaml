@@ -4,25 +4,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RWApp"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="CharacterCreationPage">
+      mc:Ignorable="d"
+      Title="CharacterCreationPage" Height="796.114" Width="362.645">
 
     <Grid>
         <TextBox x:Name="animalsTextBox" HorizontalAlignment="Left" Height="23" Margin="240,54,0,0" TextWrapping="Wrap" Text="{Binding Path=Animals}" VerticalAlignment="Top" Width="50"/>
         <TextBox x:Name="artisticTextBox" HorizontalAlignment="Left" Height="23" Margin="240,82,0,0" TextWrapping="Wrap" Text="{Binding Path=Artistic}" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="240,110,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="textBox_Copy2" HorizontalAlignment="Left" Height="23" Margin="240,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
-        <TextBox x:Name="textBox_Copy3" HorizontalAlignment="Left" Height="23" Margin="240,166,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
-        <TextBox x:Name="textBox_Copy4" HorizontalAlignment="Left" Height="23" Margin="240,194,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
-        <TextBox x:Name="textBox_Copy5" HorizontalAlignment="Left" Height="23" Margin="240,222,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
-        <Label x:Name="label" Content="{Binding SkillType,StringFormat={}{0}}" HorizontalAlignment="Left" Margin="145,54,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy" Content="{Binding Path=Artistic}" HorizontalAlignment="Left" Margin="145,82,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy1" Content="Label" HorizontalAlignment="Left" Margin="145,110,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy2" Content="Label" HorizontalAlignment="Left" Margin="145,138,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy3" Content="Label" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy4" Content="Label" HorizontalAlignment="Left" Margin="145,194,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
-        <Label x:Name="label_Copy5" Content="Label" HorizontalAlignment="Left" Margin="145,222,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="constructionTextBox" HorizontalAlignment="Left" Height="23" Margin="240,110,0,0" TextWrapping="Wrap" Text="{Binding Path=Construction}" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="cookingTextBox" HorizontalAlignment="Left" Height="23" Margin="240,138,0,0" TextWrapping="Wrap" Text="{Binding Path=Cooking}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="craftingTextBox" HorizontalAlignment="Left" Height="23" Margin="240,166,0,0" TextWrapping="Wrap" Text="{Binding Path=Crafting}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="growingTextBox" HorizontalAlignment="Left" Height="23" Margin="240,194,0,0" TextWrapping="Wrap" Text="{Binding Path=Growing}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="medicineTextBox" HorizontalAlignment="Left" Height="23" Margin="240,222,0,0" TextWrapping="Wrap" Text="{Binding Path=Medicine}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="meleeTextBox" HorizontalAlignment="Left" Height="23" Margin="240,250,0,0" TextWrapping="Wrap" Text="{Binding Path=Melee}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829"/>
+        <TextBox x:Name="miningTextBox" HorizontalAlignment="Left" Height="23" Margin="240,278,0,-1" TextWrapping="Wrap" Text="{Binding Path=Mining}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829" />
+        <TextBox x:Name="intellectualTextBox" HorizontalAlignment="Left" Height="23" Margin="240,306,0,0" TextWrapping="Wrap" Text="{Binding Path=Intellectual}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829" />
+        <TextBox x:Name="shootingTextBox" HorizontalAlignment="Left" Height="23" Margin="240,334,0,0" TextWrapping="Wrap" Text="{Binding Path=Shooting}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829" />
+        <TextBox x:Name="socialTextBox" HorizontalAlignment="Left" Height="23" Margin="240,362,0,0" TextWrapping="Wrap" Text="{Binding Path=Social}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829" />
+        <TextBox x:Name="trainingTextBox" HorizontalAlignment="Left" Height="23" Margin="240,390,0,0" TextWrapping="Wrap" Text="{Binding Path=Training}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.143,1.829" />
+
+        <Label x:Name="animalsLabel" Content="Animals" HorizontalAlignment="Left" Margin="145,54,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="artisticLabel" Content="Artistic" HorizontalAlignment="Left" Margin="145,82,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="constructionLabel" Content="Construction" HorizontalAlignment="Left" Margin="145,110,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="cookingLabel" Content="Cooking" HorizontalAlignment="Left" Margin="145,138,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="craftingLabel" Content="Crafting" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="growingLabel" Content="Growing" HorizontalAlignment="Left" Margin="145,194,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="medicineLabel" Content="Medicine" HorizontalAlignment="Left" Margin="145,222,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="meleeLabel" Content="Melee" HorizontalAlignment="Left" Margin="145,250,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="miningLabel" Content="Mining" HorizontalAlignment="Left" Margin="145,278,0,-1" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="intellectualLabel" Content="Intellectual" HorizontalAlignment="Left" Margin="145,306,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="shootingLabel" Content="Shooting" HorizontalAlignment="Left" Margin="145,334,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="socialLabel" Content="Social" HorizontalAlignment="Left" Margin="145,362,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+        <Label x:Name="trainingLabel" Content="Training" HorizontalAlignment="Left" Margin="145,390,0,0" VerticalAlignment="Top" Width="90" Height="23" VerticalContentAlignment="Center"/>
+
+        <TextBox x:Name="firstNameTextBox" HorizontalAlignment="Left" Height="23" Margin="75,29,0,0" TextWrapping="Wrap" Text="{Binding Path=FirstName}" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="middleNameTextBox" HorizontalAlignment="Left" Height="23" Margin="130,29,0,0" TextWrapping="Wrap" Text="{Binding Path=MiddleName}" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="lastNameTextBox" HorizontalAlignment="Left" Height="23" Margin="185,29,0,0" TextWrapping="Wrap" Text="{Binding Path=LastName}" VerticalAlignment="Top" Width="50"/>
 
     </Grid>
 </Page>

@@ -15,6 +15,17 @@ namespace RWLib
         {
         }
 
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return string.Format("{0} {1} {2}", FirstName, MiddleName, LastName);
+            }
+        }
         public int Animals { get; set; }
         public int Artistic { get; set; }
         public int Construction { get; set; }
