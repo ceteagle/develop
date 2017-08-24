@@ -8,3 +8,6 @@
 /RW/RWLib/obj
 /RW/RWApp/obj
 /.vs
+/WPFTestApplication/.vs/WPFTestApplication/v15
+/WPFTestApplication/WPFTestApplication/bin/Debug
+/WPFTestApplication/WPFTestApplication/obj/Debug
