@@ -15,22 +15,22 @@
             <RibbonTab Header="Home" KeyTip="H" >
                 <!-- Home  group-->
                 <RibbonGroup x:Name="ClipboardGroup" Header="Home">
-                    <RibbonMenuButton LargeImageSource="Images\paste.png" Label="Paste" KeyTip="V">
-                        <RibbonMenuItem ImageSource="Images\paste.png" Header="Keep Text Only" KeyTip="T"/>
-                        <RibbonMenuItem ImageSource="Images\paste.png" Header="Paste Special..." KeyTip="S"/>
+                    <RibbonMenuButton LargeImageSource="pack://application:,,,/Images/paste.png" Label="Paste" KeyTip="V">
+                        <RibbonMenuItem ImageSource="pack://application:,,,/Images/paste.png" Header="Keep Text Only" KeyTip="T"/>
+                        <RibbonMenuItem ImageSource="pack://application:,,,/Images/paste.png" Header="Paste Special..." KeyTip="S"/>
                     </RibbonMenuButton>
-                    <RibbonButton SmallImageSource="Images\cut.png" Label="Cut" KeyTip="X" />
-                    <RibbonButton SmallImageSource="Images\copy.png" Label="Copy" KeyTip="C" />
-                    <RibbonButton SmallImageSource="Images\format_painter.png" Label="Format Painter" KeyTip="FP" />
+                    <RibbonButton SmallImageSource="pack://application:,,,/Images/cut.png" Label="Cut" KeyTip="X" />
+                    <RibbonButton SmallImageSource="pack://application:,,,/Images/copy.png" Label="Copy" KeyTip="C" />
+                    <RibbonButton SmallImageSource="pack://application:,,,/Images/format_painter.png" Label="Format Painter" KeyTip="FP" />
                 </RibbonGroup>
                 <!-- Employee And Payroll group-->
                 <RibbonGroup x:Name="Employee" Header="Employee And Payroll">
-                    <RibbonMenuButton LargeImageSource="Images\personal.png" Label="Employee" KeyTip="V">
-                        <RibbonMenuItem ImageSource="Images\paste.png" Header="Keep Text Only" KeyTip="T"/>
-                        <RibbonMenuItem ImageSource="Images\paste.png" Header="Paste Special..." KeyTip="S"/>
+                    <RibbonMenuButton LargeImageSource="pack://application:,,,/Images/personal.png" Label="Employee" KeyTip="V">
+                        <RibbonMenuItem ImageSource="pack://application:,,,/Images/paste.png" Header="Keep Text Only" KeyTip="T"/>
+                        <RibbonMenuItem ImageSource="pack://application:,,,/Images/paste.png" Header="Paste Special..." KeyTip="S"/>
                     </RibbonMenuButton>
-                    <RibbonButton SmallImageSource="Images\save.png" Label="Save" KeyTip="X" />
-                    <RibbonButton SmallImageSource="Images\add.png" Label="Add" KeyTip="C" />
+                    <RibbonButton SmallImageSource="pack://application:,,,/Images/save.png" Label="Save" KeyTip="X" />
+                    <RibbonButton SmallImageSource="pack://application:,,,/Images/add.png" Label="Add" KeyTip="C" />
                 </RibbonGroup>
             </RibbonTab>
             <!-- Ribbon Tab #2: -->
