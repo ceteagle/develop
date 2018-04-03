@@ -18,5 +18,5 @@ ConsoleOutput::~ConsoleOutput()
 
 void ConsoleOutput::ClearScreen()
 {
-	Timer t("ClearScreen", "ConsoleOutput");
+	Timer t("ConsoleOutput::ClearScreen()");
 }

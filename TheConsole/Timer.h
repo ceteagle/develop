@@ -11,16 +11,13 @@ enum TimerFlags
 class Timer
 {
 public:
-	Timer(std::string function, TimerFlags flags=kTimerNone);
-	Timer(std::string function, std::string classname, TimerFlags flags = kTimerNone);
+	Timer(std::string key, TimerFlags flags=kTimerNone);
 	~Timer();
 
 private:
 	std::chrono::time_point<std::chrono::steady_clock> _start, _end;
 	std::chrono::duration<float> _duration;
-	std::string _function;
-	std::string _class;
-	
+	std::string _key;
 	TimerFlags _flags;
 };
 
