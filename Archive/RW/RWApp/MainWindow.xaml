@@ -1,0 +1,15 @@
+﻿<Window x:Class="RWApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RW" Height="800" Width="600">
+    <Grid>
+        <ToolBar Margin="0,10,0,0" VerticalAlignment="Top">
+            <Button Content="Save" ToolTip="Save database"/>
+            <Button Content="Save As" ToolTip="Save database as"/>
+            <Separator/>
+            <Button Content="+" ToolTip="Add new character" VerticalAlignment="Top" Click="AddCharacterButton_Click"/>
+            <Button Name="SaveCharacterButton" Content="Save Character" Click="SaveCharacterButton_Click"/>
+        </ToolBar>
+        <Frame x:Name="Main" Margin="0,42,0,0" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
