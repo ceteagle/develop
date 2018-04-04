@@ -14,7 +14,7 @@ TimerData::~TimerData()
 
 void TimerData::PrintReport()
 {
-	TimerManager::Instance().PrintLine( std::string( _info + " took " + std::to_string(_time) + " ms" ));
+	TimerManager::Instance().PrintLine( std::string( _info + " took " + std::to_string(_time_microseconds) + " microseconds " + std::to_string(_time_milliseconds) + " milliseconds " + std::to_string(_time_seconds) + " seconds"  ));
 }
 
 void TimerData::SetInfo(std::string info)
@@ -22,9 +22,11 @@ void TimerData::SetInfo(std::string info)
 	_info = info;
 }
 
-void TimerData::SetTime(float time)
+void TimerData::SetTime(long long time_microseconds, long long time_milliseconds, long long time_seconds)
 {
-	_time = time;
+	_time_microseconds = time_microseconds;
+	_time_milliseconds = time_milliseconds;
+	_time_seconds = time_seconds;
 }
 
 std::string TimerData::GetInfo()
@@ -32,7 +34,12 @@ std::string TimerData::GetInfo()
 	return _info;
 }
 
-float TimerData::GetTime()
+long long TimerData::GetTime(TimeOptions timeOption)
 {
-	return _time;
+	if (timeOption == kTimeOptionMicroseconds)
+		return _time_microseconds;
+	else if (timeOption == kTimeOptionMilliseconds)
+		return _time_milliseconds;
+	else
+		return _time_seconds;
 }

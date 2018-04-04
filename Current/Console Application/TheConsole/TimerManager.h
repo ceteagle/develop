@@ -16,7 +16,7 @@ public:
 		return manager;
 	}
 
-	void AddData(std::string info, float time);
+	void AddData(std::string info, long long time_microseconds, long long time_milliseconds, long long time_seconds);
 	void PrintReport();
 	void PushIndent();
 	void PopIndent();

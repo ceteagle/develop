@@ -14,11 +14,11 @@ TimerManager::~TimerManager()
 {
 }
 
-void TimerManager::AddData(std::string info, float time)
+void TimerManager::AddData(std::string info, long long time_microseconds, long long time_milliseconds, long long time_seconds)
 {
 	TimerData data;
 	data.SetInfo(info);
-	data.SetTime(time);
+	data.SetTime(time_microseconds, time_milliseconds, time_seconds);
 
 	_data.push_back(data);
 }
