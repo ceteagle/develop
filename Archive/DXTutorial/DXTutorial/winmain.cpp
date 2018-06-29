@@ -39,7 +39,7 @@ bool TestApp::Init()
 
 	m_spriteBatch.reset(new DirectX::SpriteBatch(m_pImmediateContext));
 	m_spriteFont.reset(new DirectX::SpriteFont(m_pDevice, L"fonts/Arial.spritefont"));
-	
+
 	m_sprite = new Sprite(DirectX::SimpleMath::Vector2(100, 100));
 	m_sprite->Load(m_pDevice, L"images/test.dds");
 
@@ -48,9 +48,23 @@ bool TestApp::Init()
 
 void TestApp::Update(float deltatime)
 {
-	if (GetAsyncKeyState('D'))
+	auto offset = 0.1;
+	auto position = m_sprite->GetPosition();
+	if (GetAsyncKeyState('D'))	// right
 	{
-		m_sprite->SetPostion(DirectX::SimpleMath::Vector2(300, 300));
+		m_sprite->SetPostion(DirectX::SimpleMath::Vector2(position.x + offset, position.y));
+	}
+	if (GetAsyncKeyState('A'))	// left
+	{
+		m_sprite->SetPostion(DirectX::SimpleMath::Vector2(position.x - offset, position.y));
+	}
+	if (GetAsyncKeyState('S'))	// back
+	{
+		m_sprite->SetPostion(DirectX::SimpleMath::Vector2(position.x, position.y + offset));
+	}
+	if (GetAsyncKeyState('W'))	// forward
+	{
+		m_sprite->SetPostion(DirectX::SimpleMath::Vector2(position.x, position.y - offset));
 	}
 }
 
@@ -76,6 +90,6 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, _
 {
 	TestApp tApp(hInstance);
 	if (!tApp.Init()) return 1;
-	
+
 	return tApp.Run();
 }
