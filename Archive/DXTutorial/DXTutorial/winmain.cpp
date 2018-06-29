@@ -72,6 +72,9 @@ void TestApp::Render(float deltatime)
 {
 	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, DirectX::Colors::CornflowerBlue);
 
+	auto scale = m_sprite->GetScale();
+	m_sprite->Animate();
+
 	// Draw sprites, fonts, etc
 	m_spriteBatch->Begin();
 	{

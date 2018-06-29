@@ -26,6 +26,14 @@ public:
 	virtual void Load(ID3D11Device * device, const wchar_t * file) override;
 
 	virtual void Draw(DirectX::SpriteBatch * spriteBatch) override;
+	void Animate();
+
+private:
+	typedef enum AnimationDirectionType
+	{
+		kAnimatingUp,
+		kAnimatingDown
+	};
 
 protected:
 	ID3D11Resource *			m_pResource;
@@ -39,6 +47,7 @@ protected:
 	Color						m_Tint;
 	FLOAT						m_Alpha;
 	FLOAT						m_Rotation;
+	AnimationDirectionType		m_AnimationDirection;
 
 };
 
