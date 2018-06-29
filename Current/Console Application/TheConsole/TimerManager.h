@@ -23,6 +23,8 @@ public:
 	
 	void PrintLine(std::string line);
 
+	void Average(std::string info);
+
 private:
 	static TimerManager * _manager;
 	std::vector<TimerData> _data;

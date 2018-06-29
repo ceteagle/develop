@@ -5,6 +5,9 @@
 
 TimerData::TimerData()
 {
+	_time_microseconds = 0;
+	_time_milliseconds = 0;
+	_time_seconds = 0;
 }
 
 

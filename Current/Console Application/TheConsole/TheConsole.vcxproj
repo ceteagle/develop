@@ -147,7 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CodeControlTest.h" />
     <ClInclude Include="ConsoleOutput.h" />
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="MapSearchTest.h" />
     <ClInclude Include="StackManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -156,7 +159,10 @@
     <ClInclude Include="TimerManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CodeControlTest.cpp" />
     <ClCompile Include="ConsoleOutput.cpp" />
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="MapSearchTest.cpp" />
     <ClCompile Include="StackManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
