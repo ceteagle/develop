@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="TheFinalCut.cpp" />
+    <ClCompile Include="Graphics\Engine.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Graphics\Sprite.cpp" />
+    <ClCompile Include="Graphics\Mouse.cpp" />
+    <ClCompile Include="Graphics\Keyboard.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Graphics\Engine.h" />
+    <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Graphics\Sprite.h" />
+    <ClInclude Include="Graphics\Mouse.h" />
+    <ClInclude Include="Graphics\Keyboard.h" />
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Math\Vector3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Graphics\SOIL\lib\SOIL.lib" />
+  </ItemGroup>
+</Project>
