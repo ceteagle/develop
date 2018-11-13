@@ -7,7 +7,7 @@
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Mouse.cpp" />
     <ClCompile Include="Graphics\Keyboard.cpp" />
-    <ClCompile Include="Math\Vector3.cpp" />
+    <ClCompile Include="Graphics\Physics\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -20,6 +20,7 @@
     <ClInclude Include="Graphics\Keyboard.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Graphics\Physics\RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Graphics\SOIL\lib\SOIL.lib" />

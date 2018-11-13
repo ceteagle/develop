@@ -7,12 +7,17 @@
 #include <string>
 #include "../Math/Vector3.h"
 
+namespace TFC { namespace Graphics { namespace Physics {
+    class RigidBody;
+} } }
+
 namespace TFC
 {
     namespace Graphics
     {
         class Sprite
         {
+            friend class TFC::Graphics::Physics::RigidBody;
         public:
             Sprite();
             Sprite(std::string imagePath);
@@ -36,11 +41,13 @@ namespace TFC
             void MoveUp();
             void MoveDown();
 
-        private:
-            TFC::Graphics::Texture _texture;
+        protected:
             TFC::Math::Vector3<float> _pos;
             TFC::Math::Vector3<float> _scale;
+            TFC::Graphics::Texture _texture;
             float _rotation;
+
+        private:
             float _speed;
         };
     }

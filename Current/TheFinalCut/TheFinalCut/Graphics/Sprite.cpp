@@ -50,9 +50,9 @@ void TFC::Graphics::Sprite::Render()
     glBegin(GL_QUADS);
     {
         glTexCoord2f(0.0, 0.0);    glVertex2f(0.0, 0.0);
-        glTexCoord2f(1.0, 0.0);    glVertex2f(_texture.GetWidth(), 0.0);
-        glTexCoord2f(1.0, 1.0);    glVertex2f(_texture.GetWidth(), _texture.GetHeight());
-        glTexCoord2f(0.0, 1.0);    glVertex2f(0.0, _texture.GetHeight());
+        glTexCoord2f(1.0, 0.0);    glVertex2f((float)_texture.GetWidth(), 0.0);
+        glTexCoord2f(1.0, 1.0);    glVertex2f((float)_texture.GetWidth(), (float)_texture.GetHeight());
+        glTexCoord2f(0.0, 1.0);    glVertex2f(0.0, (float)_texture.GetHeight());
     }
     glEnd();
 
@@ -91,7 +91,7 @@ void TFC::Graphics::Sprite::RotateBy(float rotation)
 
 void TFC::Graphics::Sprite::SetScale(float x)
 {
-    _scale = x;
+    _scale = Vector3<float>(x, x, 0.0);
 }
 
 void TFC::Graphics::Sprite::SetScale(Vector3<float>& v)

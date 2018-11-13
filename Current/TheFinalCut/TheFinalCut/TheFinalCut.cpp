@@ -3,10 +3,12 @@
 #include "Graphics/Sprite.h"
 #include "Graphics/Mouse.h"
 #include "Graphics/Keyboard.h"
+#include "Graphics/Physics/RigidBody.h"
 #include "Math/Vector3.h"
 
 using namespace std;
 using namespace TFC::Graphics;
+using namespace TFC::Graphics::Physics;
 using namespace TFC::Math;
 
 int main()
@@ -19,15 +21,19 @@ int main()
     Vector3<float> pos(100., 100., 0.0);
 
     Sprite sprite = Sprite("D:\\Development\\Thirdparty\\Simple OpenGL Image Library\\img_test.png", pos );
-
+    //Sprite sprite = Sprite("D:\\Development\\develop\\Current\\TheFinalCut\\TheFinalCut\\Assets\\Images\\sprite_base_addon_2012_12_14.png", pos );
+    RigidBody rigidBody = RigidBody();
+    rigidBody.Initialize(9.8, 0.9, sprite);
+        
+    sprite.SetScale(0.25f);
+    sprite.SpeedTo(300.0);
+    
     while (true)
     {
         engine.Update();
         
         {
-            sprite.Update();
-            sprite.SetScale(0.25f);
-            sprite.SpeedTo(300.0);
+            rigidBody.Update();
         }
 
         {   // MOUSE EVENTS
@@ -48,25 +54,27 @@ int main()
         {   // KEYBOARD EVENTS
             if (Keyboard::Key(GLFW_KEY_W))
             {
-                sprite.MoveUp();
+                rigidBody.AddForce(Vector3<float>(0.0, 20.0, 0.0));
             }
             if (Keyboard::Key(GLFW_KEY_A))
             {
-                sprite.MoveLeft();
+                rigidBody.AddForce(Vector3<float>(-20.0, 0.0, 0.0));
+
             }
             if (Keyboard::Key(GLFW_KEY_S))
             {
-                sprite.MoveDown();
+                rigidBody.AddForce(Vector3<float>(0.0, -20.0, 0.0));
+
             }
             if (Keyboard::Key(GLFW_KEY_D))
             {
-                sprite.MoveRight();
+                rigidBody.AddForce(Vector3<float>(20.0, 0.0, 0.0));
             }
         }
 
         engine.BeginRender();
         {
-            sprite.Render();
+            rigidBody.Render(Vector3<float>(1.0, 1.0, 1.0));
         }
         engine.EndRender();
     }

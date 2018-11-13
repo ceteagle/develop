@@ -144,15 +144,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\Engine.cpp" />
+    <ClCompile Include="Graphics\Physics\RigidBody.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\Mouse.cpp" />
     <ClCompile Include="Graphics\Keyboard.cpp" />
-    <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="TheFinalCut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Engine.h" />
+    <ClInclude Include="Graphics\Physics\RigidBody.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Mouse.h" />

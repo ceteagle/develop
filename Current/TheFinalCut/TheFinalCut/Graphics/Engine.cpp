@@ -10,7 +10,7 @@ using namespace TFC::Graphics;
 int Engine::SCREEN_WIDTH = 1024;
 int Engine::SCREEN_HEIGHT = 768;
 GLFWwindow * Engine::_window = nullptr;
-double Engine::_deltaTime = 0.0;
+float Engine::_deltaTime = 0.0;
 
 Engine::Engine()
 {
@@ -49,8 +49,8 @@ bool TFC::Graphics::Engine::Initialize(const char * title)
     glfwSetKeyCallback(_window, Keyboard::KeyCallback);
 
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    int xPos = (mode->width - SCREEN_WIDTH) * 0.5;
-    int yPos = (mode->height - SCREEN_HEIGHT) * .5;
+    int xPos = (mode->width - SCREEN_WIDTH) / 2;
+    int yPos = (mode->height - SCREEN_HEIGHT) / 2;
     glfwSetWindowPos(_window, xPos, yPos);
 
     // GL setup
@@ -66,17 +66,17 @@ bool TFC::Graphics::Engine::Initialize(const char * title)
     //
     glEnable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
-    
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    _lastTime = glfwGetTime();
+    _lastTime = (float)glfwGetTime();
 
     return true;
 }
 
 void Engine::Update()
 {
-    double now = glfwGetTime();
+    float now = (float)glfwGetTime();
     _deltaTime = now - _lastTime;
     _lastTime = now;
 

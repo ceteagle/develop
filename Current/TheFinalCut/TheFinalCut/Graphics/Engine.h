@@ -23,12 +23,12 @@ namespace TFC
             static int SCREEN_WIDTH;
             static int SCREEN_HEIGHT;
 
-            static double GetDeltaTime() { return _deltaTime; }
+            static float GetDeltaTime() { return _deltaTime; }
 
         private:
             static GLFWwindow * _window;
-            static double _deltaTime;
-            double _lastTime;
+            static float _deltaTime;
+            float _lastTime;
         };
 
     }
