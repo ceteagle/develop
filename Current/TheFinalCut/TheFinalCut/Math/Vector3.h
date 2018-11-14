@@ -1,6 +1,10 @@
 #ifndef __VECTOR3__H__
 #define __VECTOR3__H__
 
+#include <sstream>
+#include <math.h>
+#include <vector>
+
 namespace TFC
 {
     namespace Math
@@ -78,7 +82,24 @@ namespace TFC
                 return !(operator==(other));
             }
 
+            float Dot(const Vector3<T>& other)
+            {
+                return x * other.x + y * other.y;
+            }
 
+            Vector3<T> Project(const Vector3<T>& other)
+            {
+                return Vector3<T>( (Dot(other) / ( (T)pow(other.x, 2) + (T)pow(other.y, 2) )) * other.x,
+                                   (Dot(other) / ( (T)pow(other.x, 2) + (T)pow(other.y, 2) )) * other.y,
+                                   0.0 );
+            }
+
+            std::string ToString()
+            {
+                std::stringstream ss;
+                ss << "(" << (T)x << "," << (T)y << ")";
+                return ss.str();
+            }
             T x;
             T y;
             T z;

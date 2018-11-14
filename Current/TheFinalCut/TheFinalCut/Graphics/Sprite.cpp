@@ -2,36 +2,38 @@
 #include "Engine.h"
 
 using namespace TFC::Math;
+using namespace TFC::Graphics;
 
-TFC::Graphics::Sprite::Sprite() :
+Sprite::Sprite() :
     _rotation(0.0), _speed(100.0)
 {
-    _pos = Vector3<float>(0.0);
     _scale = Vector3<float>(1.0);
-
+    _color = Vector3<float>(1.0);
     _texture = Texture();
 }
 
-TFC::Graphics::Sprite::Sprite(std::string imagePath) : Sprite()
+Sprite::Sprite(std::string imagePath) : Sprite()
 {
     _texture = Texture(imagePath);
+    Rectangle::SetSize(GetSize());
 }
 
-TFC::Graphics::Sprite::Sprite(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sprite(imagePath)
+Sprite::Sprite(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sprite(imagePath)
 {
-    _pos = pos;
+    _position = pos;
 }
 
-TFC::Graphics::Sprite::~Sprite()
+Sprite::~Sprite()
 {
 }
 
-void TFC::Graphics::Sprite::Update()
+void Sprite::Update()
 {
-
+    Rectangle::UpdateVertices();
+    Rectangle::Rotate(_rotation);
 }
 
-void TFC::Graphics::Sprite::Render()
+void Sprite::Render()
 {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, _texture.GetID());
@@ -39,7 +41,7 @@ void TFC::Graphics::Sprite::Render()
 
     // Translate -> Rotate -> Scale
     //
-    glTranslatef(_pos.x, _pos.y, _pos.z);
+    glTranslatef(_position.x, _position.y, _position.z);
     glRotatef(_rotation, 0.0, 0.0, 1.0);
     glScalef(_scale.x, _scale.y, _scale.z);
 
@@ -49,72 +51,86 @@ void TFC::Graphics::Sprite::Render()
 
     glBegin(GL_QUADS);
     {
-        glTexCoord2f(0.0, 0.0);    glVertex2f(0.0, 0.0);
-        glTexCoord2f(1.0, 0.0);    glVertex2f((float)_texture.GetWidth(), 0.0);
-        glTexCoord2f(1.0, 1.0);    glVertex2f((float)_texture.GetWidth(), (float)_texture.GetHeight());
-        glTexCoord2f(0.0, 1.0);    glVertex2f(0.0, (float)_texture.GetHeight());
+        glTexCoord2f(0.0, 0.0);    glVertex2f(-(float)_texture.GetWidth() * .5, -(float)_texture.GetHeight() * .5);
+        glTexCoord2f(1.0, 0.0);    glVertex2f( (float)_texture.GetWidth() * .5, -(float)_texture.GetHeight() * .5);
+        glTexCoord2f(1.0, 1.0);    glVertex2f( (float)_texture.GetWidth() * .5,  (float)_texture.GetHeight() * .5);
+        glTexCoord2f(0.0, 1.0);    glVertex2f(-(float)_texture.GetWidth() * .5,  (float)_texture.GetHeight() * .5);
     }
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
+
+    Rectangle::Render(_color);
 }
 
-void TFC::Graphics::Sprite::SpeedTo(float speed)
+void Sprite::SpeedTo(float speed)
 {
     _speed = speed;
 }
 
-void TFC::Graphics::Sprite::SpeedBy(float speed)
+void Sprite::SpeedBy(float speed)
 {
     _speed += speed;
 }
 
-void TFC::Graphics::Sprite::MoveTo(Vector3<float>& v)
+void Sprite::MoveTo(Vector3<float>& v)
 {
-    _pos = v;
+    _position = v;
 }
 
-void TFC::Graphics::Sprite::MoveBy(Vector3<float>& v)
+void Sprite::MoveBy(Vector3<float>& v)
 {
-    _pos += Vector3<float>(v*Engine::GetDeltaTime());
+    _position += Vector3<float>(v*Engine::GetDeltaTime());
 }
 
-void TFC::Graphics::Sprite::RotateTo(float rotation)
+void Sprite::RotateTo(float rotation)
 {
     _rotation = rotation;
 }
 
-void TFC::Graphics::Sprite::RotateBy(float rotation)
+void Sprite::RotateBy(float rotation)
 {
     _rotation += (rotation*Engine::GetDeltaTime());
 }
 
-void TFC::Graphics::Sprite::SetScale(float x)
+void Sprite::SetScale(float x)
 {
     _scale = Vector3<float>(x, x, 0.0);
+    Rectangle::SetScale(x*1.1);
 }
 
-void TFC::Graphics::Sprite::SetScale(Vector3<float>& v)
+void Sprite::SetScale(Vector3<float>& v)
 {
     _scale = v;
+    Rectangle::SetScale(v);
 }
 
-void TFC::Graphics::Sprite::MoveLeft()
+void Sprite::MoveLeft()
 {
-    _pos.x -= (_speed * Engine::GetDeltaTime());
+    _position.x -= (_speed * Engine::GetDeltaTime());
 }
 
-void TFC::Graphics::Sprite::MoveRight()
+void Sprite::MoveRight()
 {
-    _pos.x += (_speed* Engine::GetDeltaTime());
+    _position.x += (_speed* Engine::GetDeltaTime());
 }
 
-void TFC::Graphics::Sprite::MoveUp()
+void Sprite::MoveUp()
 {
-    _pos.y += (_speed * Engine::GetDeltaTime());
+    _position.y += (_speed * Engine::GetDeltaTime());
 }
 
-void TFC::Graphics::Sprite::MoveDown()
+void Sprite::MoveDown()
 {
-    _pos.y -= (_speed * Engine::GetDeltaTime());
+    _position.y -= (_speed * Engine::GetDeltaTime());
+}
+
+Vector3<float> Sprite::GetSize()
+{
+    return Vector3<float>(_texture.GetWidth(), _texture.GetHeight(), 0.0);
+}
+
+void TFC::Graphics::Sprite::SetBoundingBoxColor(TFC::Math::Vector3<float>& color)
+{
+    _color = color;
 }

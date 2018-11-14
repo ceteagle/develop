@@ -5,6 +5,7 @@
 #include "Graphics/Keyboard.h"
 #include "Graphics/Physics/RigidBody.h"
 #include "Math/Vector3.h"
+#include "InputManager.h"
 
 using namespace std;
 using namespace TFC::Graphics;
@@ -19,64 +20,50 @@ int main()
     engine.Initialize("The Final Cut");
 
     Vector3<float> pos(100., 100., 0.0);
+    Vector3<float> staticpos(220., 220., 0.0);
 
-    Sprite sprite = Sprite("D:\\Development\\Thirdparty\\Simple OpenGL Image Library\\img_test.png", pos );
-    //Sprite sprite = Sprite("D:\\Development\\develop\\Current\\TheFinalCut\\TheFinalCut\\Assets\\Images\\sprite_base_addon_2012_12_14.png", pos );
-    RigidBody rigidBody = RigidBody();
-    rigidBody.Initialize(9.8, 0.9, sprite);
-        
-    sprite.SetScale(0.25f);
-    sprite.SpeedTo(300.0);
+    Sprite sprite = Sprite("D:\\Development\\Thirdparty\\Simple OpenGL Image Library\\img_test.png", staticpos);
+    sprite.SetScale(0.5f);
+    sprite.RotateTo(45.0f);
     
+    RigidBody rigidBody = RigidBody("D:\\Development\\Thirdparty\\Simple OpenGL Image Library\\img_test.png", pos);
+    rigidBody.Initialize(9.8, 0.9);
+    rigidBody.SetScale(0.25f);
+    rigidBody.SpeedTo(300.0);
+
+    InputManager inputManager(&rigidBody);
+
+    Vector3<float> red(1.0, 0.0, 0.0);
+    Vector3<float> white(1.0, 1.0, 1.0);
+
     while (true)
     {
+        sprite.RotateBy(5.0);
         engine.Update();
-        
+        rigidBody.Update();
+        sprite.Update();
+        if (rigidBody.CollidesWith(sprite))
         {
-            rigidBody.Update();
+            sprite.SetBoundingBoxColor(red);
+            rigidBody.SetBoundingBoxColor(red);
+        }
+        else
+        {
+            sprite.SetBoundingBoxColor(white);
+            rigidBody.SetBoundingBoxColor(white);
         }
 
-        {   // MOUSE EVENTS
-            if (Mouse::ButtonDown(GLFW_MOUSE_BUTTON_LEFT))
-            {
-                sprite.RotateBy(100.0);
-            }
-            if (Mouse::ButtonDown(GLFW_MOUSE_BUTTON_RIGHT))
-            {
-                sprite.RotateBy(-100.0);
-            }
-            if (Mouse::Button(GLFW_MOUSE_BUTTON_MIDDLE))
-            {
-                sprite.RotateBy(100.0);
-            }
-        }
-
-        {   // KEYBOARD EVENTS
-            if (Keyboard::Key(GLFW_KEY_W))
-            {
-                rigidBody.AddForce(Vector3<float>(0.0, 20.0, 0.0));
-            }
-            if (Keyboard::Key(GLFW_KEY_A))
-            {
-                rigidBody.AddForce(Vector3<float>(-20.0, 0.0, 0.0));
-
-            }
-            if (Keyboard::Key(GLFW_KEY_S))
-            {
-                rigidBody.AddForce(Vector3<float>(0.0, -20.0, 0.0));
-
-            }
-            if (Keyboard::Key(GLFW_KEY_D))
-            {
-                rigidBody.AddForce(Vector3<float>(20.0, 0.0, 0.0));
-            }
-        }
+        inputManager.Update();
 
         engine.BeginRender();
         {
+            sprite.Render();
             rigidBody.Render(Vector3<float>(1.0, 1.0, 1.0));
         }
         engine.EndRender();
+
+        if (inputManager.CanExit())
+            break;
     }
     return 0;
 }

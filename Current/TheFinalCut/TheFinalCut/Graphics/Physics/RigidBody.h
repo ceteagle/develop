@@ -9,13 +9,16 @@ namespace TFC
     {
         namespace Physics
         {
-            class RigidBody
+            class RigidBody : public Sprite
             {
             public:
                 RigidBody();
+                void Initialize();
+                RigidBody(std::string imagePath);
+                RigidBody(std::string imagePath, TFC::Math::Vector3<float>& pos);
                 ~RigidBody();
 
-                bool Initialize(float gravity, float friction, TFC::Graphics::Sprite& sprite);
+                bool Initialize(float gravity, float friction);
                 
                 void Update();
                 void Render(TFC::Math::Vector3<float> color);
@@ -23,8 +26,6 @@ namespace TFC
                 void AddForce(TFC::Math::Vector3<float> force);
 
             private:
-                Sprite* _sprite;
-
                 float _gravity;
                 float _friction;
                 TFC::Math::Vector3<float> _velocity;

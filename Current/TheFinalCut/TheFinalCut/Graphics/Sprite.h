@@ -3,21 +3,16 @@
 
 #include "GLFW/glfw3.h"
 #include "Texture.h"
-#include <iostream>
 #include <string>
 #include "../Math/Vector3.h"
-
-namespace TFC { namespace Graphics { namespace Physics {
-    class RigidBody;
-} } }
+#include "../Math/Rectangle.h"
 
 namespace TFC
 {
     namespace Graphics
     {
-        class Sprite
+        class Sprite : public Math::Rectangle
         {
-            friend class TFC::Graphics::Physics::RigidBody;
         public:
             Sprite();
             Sprite(std::string imagePath);
@@ -41,11 +36,15 @@ namespace TFC
             void MoveUp();
             void MoveDown();
 
+            TFC::Math::Vector3<float> GetSize();
+            void SetBoundingBoxColor(TFC::Math::Vector3<float>& color);
+
         protected:
-            TFC::Math::Vector3<float> _pos;
             TFC::Math::Vector3<float> _scale;
+            TFC::Math::Vector3<float> _color;
             TFC::Graphics::Texture _texture;
             float _rotation;
+
 
         private:
             float _speed;
