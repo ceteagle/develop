@@ -9,7 +9,7 @@ namespace TFC
     {
         namespace Physics
         {
-            class RigidBody : public Engine::Graphics::Sprite
+            class RigidBody : public Graphics::Sprite
             {
             public:
                 RigidBody();

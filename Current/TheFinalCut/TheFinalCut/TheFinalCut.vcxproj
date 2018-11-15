@@ -169,7 +169,6 @@
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Managers\SceneManager.h" />
     <ClInclude Include="Managers\SpriteManager.h" />
-    <ClInclude Include="TheFinalCut.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
