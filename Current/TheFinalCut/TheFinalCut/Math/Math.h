@@ -40,7 +40,7 @@ namespace TFC
         float Min(std::vector<float> vec)
         {
             float min = vec[0];
-            for (int i = 1; i < vec.size(); i++)
+            for (size_t i = 1; i < vec.size(); i++)
             {
                 if (vec[i] < min)
                     min = vec[i];
@@ -51,7 +51,7 @@ namespace TFC
         float Max(std::vector<float> vec)
         {
             float max = vec[0];
-            for (int i = 1; i < vec.size(); i++)
+            for (size_t i = 1; i < vec.size(); i++)
             {
                 if (vec[i] > max)
                     max = vec[i];

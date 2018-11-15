@@ -3,12 +3,16 @@
 
 #include "Vector3.h"
 
+namespace TFC { namespace Graphics { namespace Physics { class RigidBody; } } }
+namespace TFC { namespace Graphics { class Sprite; } }
 namespace TFC
 {
     namespace Math
     {
         class Rectangle
         {
+            friend class TFC::Graphics::Physics::RigidBody;
+            friend class TFC::Graphics::Sprite;
         public:
             Rectangle();
             Rectangle(Vector3<float> size);
@@ -20,11 +24,11 @@ namespace TFC
             void SetScale(float s);
             void SetScale(TFC::Math::Vector3<float>& v);
 
-            void UpdateVertices();
-            void Render(Vector3<float> color);
+            void Update();
+            void Render();
             void Rotate(float rotation);
 
-            bool CollidesWith(Rectangle& rectangle);
+            virtual bool CollidesWith(Rectangle& rectangle);
 
         private:
             Vector3<float> _size;
@@ -32,6 +36,7 @@ namespace TFC
 
         protected:
             Vector3<float> _position;
+            Vector3<float> _color;
             Vector3<float> _upperLeftVertex;
             Vector3<float> _upperRightVertex;
             Vector3<float> _lowerLeftVertex;

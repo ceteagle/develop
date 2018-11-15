@@ -151,6 +151,8 @@
     <ClCompile Include="Graphics\Keyboard.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Math\Rectangle.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TheFinalCut.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,9 @@
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="TheFinalCut.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

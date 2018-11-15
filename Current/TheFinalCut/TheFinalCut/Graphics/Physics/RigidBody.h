@@ -18,10 +18,11 @@ namespace TFC
                 RigidBody(std::string imagePath, TFC::Math::Vector3<float>& pos);
                 ~RigidBody();
 
-                bool Initialize(float gravity, float friction);
-                
                 void Update();
                 void Render(TFC::Math::Vector3<float> color);
+
+                void SetGravity(float gravity);
+                void SetFriction(float friction);
 
                 void AddForce(TFC::Math::Vector3<float> force);
 

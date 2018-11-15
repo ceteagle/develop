@@ -13,6 +13,7 @@ Rectangle::Rectangle()
     _size = Vector3<float>(0.0);
     _position = Vector3<float>(0.0);
     _scale = Vector3<float>(1.0);
+    _color = Vector3<float>(1.0);
 
     _upperLeftVertex = Vector3<float>(0.0);
     _upperRightVertex = Vector3<float>(0.0);
@@ -57,14 +58,14 @@ void Rectangle::SetScale(Vector3<float>& v)
     _scale = v;
 }
 
-void Rectangle::Render(Vector3<float> color)
+void Rectangle::Render()
 {
     glLoadIdentity();
     glTranslatef(_position.x, _position.y, _position.z);
     //glRotatef(_rotation, 0, 0, 1);
     glScalef(_scale.x, _scale.y, _scale.z);
 
-    glColor4f(color.x, color.y, color.z, 1);
+    glColor4f(_color.x, _color.y, _color.z, 1);
 
     glBegin(GL_LINE_LOOP);
     {
@@ -76,12 +77,12 @@ void Rectangle::Render(Vector3<float> color)
     glEnd();
 }
 
-void Rectangle::UpdateVertices()
+void Rectangle::Update()
 {
-    _lowerLeftVertex = Vector3<float>( - (_size.x * .5),  - (_size.y * .5), 0.);
-    _lowerRightVertex = Vector3<float>( + (_size.x * .5),  - (_size.y * .5), 0.);
-    _upperLeftVertex = Vector3<float>( - (_size.x * .5),  + (_size.y * .5), 0.);
-    _upperRightVertex = Vector3<float>( + (_size.x * .5),  + (_size.y * .5), 0.);
+    _lowerLeftVertex = Vector3<float>( - (_size.x * .5f),  - (_size.y * .5f), 0.f);
+    _lowerRightVertex = Vector3<float>( + (_size.x * .5f),  - (_size.y * .5f), 0.f);
+    _upperLeftVertex = Vector3<float>( - (_size.x * .5f),  + (_size.y * .5f), 0.f);
+    _upperRightVertex = Vector3<float>( + (_size.x * .5f),  + (_size.y * .5f), 0.f);
 }
 
 void Rectangle::Rotate(float rotation)
@@ -160,7 +161,7 @@ bool Rectangle::CollidesWith(Rectangle& rectangle)
     axes.push_back(axis3);
     axes.push_back(axis4);
 
-    for (int i = 0; i < axes.size(); i++)
+    for (size_t i = 0; i < axes.size(); i++)
     {
         Vector3<float> aURProj = aUR.Project(axes[i]);
         Vector3<float> aULProj = aUL.Project(axes[i]);

@@ -10,6 +10,8 @@
     <ClCompile Include="Graphics\Physics\RigidBody.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Math\Rectangle.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -25,6 +27,9 @@
     <ClInclude Include="Graphics\Physics\RigidBody.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Math\Rectangle.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="TheFinalCut.h" />
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Graphics\SOIL\lib\SOIL.lib" />

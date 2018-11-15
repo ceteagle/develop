@@ -32,33 +32,23 @@ RigidBody::~RigidBody()
 {
 }
 
-bool RigidBody::Initialize(float gravity, float friction)
-{
-    _gravity = gravity;
-    _friction = friction;
-    return true;
-}
-
+// Graphics
 void RigidBody::Update()
 {
     Sprite::Update();
 
-    _position += (_velocity * Engine::GetDeltaTime());
+    _boundingBox._position += (_velocity * Engine::GetDeltaTime());
 
     _velocity.x *= _friction;
     _velocity.y -= _gravity;
 
-    if (_position.y < 0.0)
+    if (_boundingBox._position.y < 0.0)
     {
-        _position.y = 0.0;
+        _boundingBox._position.y = 0.0;
         _velocity = 0.0;
     }
 
-    RotateTo((45. / 750.) * _velocity.y);
-
-#ifdef _DEBUG
-    //cout << "Rigid Body Position " << _position.x << " " << _position.y << " " << _position.z << " velocity = " << _velocity.x << " " << _velocity.y << endl;
-#endif
+    RotateTo((45.f / 750.f) * _velocity.y);
 }
 
 void RigidBody::Render(TFC::Math::Vector3<float> color)
@@ -66,7 +56,19 @@ void RigidBody::Render(TFC::Math::Vector3<float> color)
     Sprite::Render();
 }
 
+// Properties
+void RigidBody::SetGravity(float gravity)
+{
+    _gravity = gravity;
+}
+
+void RigidBody::SetFriction(float friction)
+{
+    _friction = friction;
+}
+
 void RigidBody::AddForce(TFC::Math::Vector3<float> force)
 {
     _velocity += force;
 }
+    

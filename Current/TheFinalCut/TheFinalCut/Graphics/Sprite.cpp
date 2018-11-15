@@ -8,19 +8,18 @@ Sprite::Sprite() :
     _rotation(0.0), _speed(100.0)
 {
     _scale = Vector3<float>(1.0);
-    _color = Vector3<float>(1.0);
     _texture = Texture();
 }
 
 Sprite::Sprite(std::string imagePath) : Sprite()
 {
     _texture = Texture(imagePath);
-    Rectangle::SetSize(GetSize());
+    _boundingBox.SetSize(GetSize());
 }
 
 Sprite::Sprite(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sprite(imagePath)
 {
-    _position = pos;
+    _boundingBox._position = pos;
 }
 
 Sprite::~Sprite()
@@ -29,8 +28,8 @@ Sprite::~Sprite()
 
 void Sprite::Update()
 {
-    Rectangle::UpdateVertices();
-    Rectangle::Rotate(_rotation);
+    _boundingBox.Update();
+    _boundingBox.Rotate(_rotation);
 }
 
 void Sprite::Render()
@@ -41,26 +40,26 @@ void Sprite::Render()
 
     // Translate -> Rotate -> Scale
     //
-    glTranslatef(_position.x, _position.y, _position.z);
+    glTranslatef(_boundingBox._position.x, _boundingBox._position.y, _boundingBox._position.z);
     glRotatef(_rotation, 0.0, 0.0, 1.0);
     glScalef(_scale.x, _scale.y, _scale.z);
 
     // Render
     //
-    glColor4f(1, 1, 1, 1);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
     glBegin(GL_QUADS);
     {
-        glTexCoord2f(0.0, 0.0);    glVertex2f(-(float)_texture.GetWidth() * .5, -(float)_texture.GetHeight() * .5);
-        glTexCoord2f(1.0, 0.0);    glVertex2f( (float)_texture.GetWidth() * .5, -(float)_texture.GetHeight() * .5);
-        glTexCoord2f(1.0, 1.0);    glVertex2f( (float)_texture.GetWidth() * .5,  (float)_texture.GetHeight() * .5);
-        glTexCoord2f(0.0, 1.0);    glVertex2f(-(float)_texture.GetWidth() * .5,  (float)_texture.GetHeight() * .5);
+        glTexCoord2f(0.0f, 0.0f);    glVertex2f(-(float)_texture.GetWidth() * .5f, -(float)_texture.GetHeight() * .5f);
+        glTexCoord2f(1.0f, 0.0f);    glVertex2f( (float)_texture.GetWidth() * .5f, -(float)_texture.GetHeight() * .5f);
+        glTexCoord2f(1.0f, 1.0f);    glVertex2f( (float)_texture.GetWidth() * .5f,  (float)_texture.GetHeight() * .5f);
+        glTexCoord2f(0.0f, 1.0f);    glVertex2f(-(float)_texture.GetWidth() * .5f,  (float)_texture.GetHeight() * .5f);
     }
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
 
-    Rectangle::Render(_color);
+    _boundingBox.Render();
 }
 
 void Sprite::SpeedTo(float speed)
@@ -75,12 +74,12 @@ void Sprite::SpeedBy(float speed)
 
 void Sprite::MoveTo(Vector3<float>& v)
 {
-    _position = v;
+    _boundingBox._position = v;
 }
 
 void Sprite::MoveBy(Vector3<float>& v)
 {
-    _position += Vector3<float>(v*Engine::GetDeltaTime());
+    _boundingBox._position += Vector3<float>(v*Engine::GetDeltaTime());
 }
 
 void Sprite::RotateTo(float rotation)
@@ -95,42 +94,47 @@ void Sprite::RotateBy(float rotation)
 
 void Sprite::SetScale(float x)
 {
-    _scale = Vector3<float>(x, x, 0.0);
-    Rectangle::SetScale(x*1.1);
+    _scale = Vector3<float>(x, x, 0.0f);
+    _boundingBox.SetScale(x*1.1f);
 }
 
 void Sprite::SetScale(Vector3<float>& v)
 {
     _scale = v;
-    Rectangle::SetScale(v);
+    _boundingBox.SetScale(v);
 }
 
 void Sprite::MoveLeft()
 {
-    _position.x -= (_speed * Engine::GetDeltaTime());
+    _boundingBox._position.x -= (_speed * Engine::GetDeltaTime());
 }
 
 void Sprite::MoveRight()
 {
-    _position.x += (_speed* Engine::GetDeltaTime());
+    _boundingBox._position.x += (_speed* Engine::GetDeltaTime());
 }
 
 void Sprite::MoveUp()
 {
-    _position.y += (_speed * Engine::GetDeltaTime());
+    _boundingBox._position.y += (_speed * Engine::GetDeltaTime());
 }
 
 void Sprite::MoveDown()
 {
-    _position.y -= (_speed * Engine::GetDeltaTime());
+    _boundingBox._position.y -= (_speed * Engine::GetDeltaTime());
 }
 
 Vector3<float> Sprite::GetSize()
 {
-    return Vector3<float>(_texture.GetWidth(), _texture.GetHeight(), 0.0);
+    return Vector3<float>((float)_texture.GetWidth(), (float)_texture.GetHeight(), 0.0f);
 }
 
-void TFC::Graphics::Sprite::SetBoundingBoxColor(TFC::Math::Vector3<float>& color)
+void Sprite::SetBoundingBoxColor(TFC::Math::Vector3<float>& color)
 {
-    _color = color;
+    _boundingBox._color = color;
+}
+
+TFC::Math::Rectangle & Sprite::GetBoundingBox()
+{
+    return _boundingBox;
 }
