@@ -1,6 +1,7 @@
 #include "SpriteManager.h"
 
 using namespace TFC::Engine::Graphics;
+using namespace TFC::Math;
 
 SpriteManager::SpriteManager()
 {
@@ -11,7 +12,7 @@ SpriteManager::~SpriteManager()
 {
 }
 
-int SpriteManager::AddSprite(std::string filePath, TFC::Math::Vector3<float> pos)
+int SpriteManager::AddSprite(std::string filePath, Vector3<float> pos)
 {
 
     Sprite sprite = Sprite(filePath, pos);

@@ -5,6 +5,7 @@
 using namespace std;
 using namespace TFC::Engine::Graphics;
 using namespace TFC::Engine::Physics;
+using namespace TFC::Math;
 
 RigidBody::RigidBody()
 {
@@ -16,7 +17,7 @@ RigidBody::RigidBody(std::string imagePath) : Sprite(imagePath)
     Initialize();
 }
 
-RigidBody::RigidBody(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sprite(imagePath, pos)
+RigidBody::RigidBody(std::string imagePath, Vector3<float>& pos) : Sprite(imagePath, pos)
 {
     Initialize();
 }
@@ -25,7 +26,7 @@ void RigidBody::Initialize()
 {
     _gravity = 0.0;
     _friction = 1.0;
-    _velocity = TFC::Math::Vector3<float>(0.0);
+    _velocity = Vector3<float>(0.0);
 }
 
 RigidBody::~RigidBody()
@@ -51,7 +52,7 @@ void RigidBody::Update()
     RotateTo((45.f / 750.f) * _velocity.y);
 }
 
-void RigidBody::Render(TFC::Math::Vector3<float> color)
+void RigidBody::Render(Vector3<float> color)
 {
     Sprite::Render();
 }
@@ -67,7 +68,7 @@ void RigidBody::SetFriction(float friction)
     _friction = friction;
 }
 
-void RigidBody::AddForce(TFC::Math::Vector3<float> force)
+void RigidBody::AddForce(Vector3<float> force)
 {
     _velocity += force;
 }
