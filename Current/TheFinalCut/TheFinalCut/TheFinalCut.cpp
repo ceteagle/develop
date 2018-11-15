@@ -45,16 +45,16 @@ int main()
     Vector3<float> pos(100., 100., 0.0);
     Vector3<float> staticpos(220., 220., 0.0);
 
-    RigidBody rigidBody = RigidBody(".\\Assets\\Images\\img_test.png", pos);
+    auto rigidBody = RigidBody(".\\Assets\\Images\\img_test.png", pos);
     rigidBody.SetGravity(9.8f);
     rigidBody.SetFriction(0.9f);
     rigidBody.SetScale(0.25f);
     rigidBody.SpeedTo(300.0);
         
-    InputManager inputManager(&rigidBody);
-    SpriteManager spriteManager;
+    auto inputManager = InputManager(&rigidBody);
+    auto spriteManager = SpriteManager();
 
-    int idx = spriteManager.AddSprite(".\\Assets\\Images\\img_test.png", staticpos);
+    auto idx = spriteManager.AddSprite(".\\Assets\\Images\\img_test.png", staticpos);
     Sprite& sprite1 = spriteManager.GetSprite(idx);
     sprite1.SetScale(0.5f);
     sprite1.RotateTo(45.0f);
@@ -69,13 +69,14 @@ int main()
     Vector3<float> red(1.0, 0.0, 0.0);
     Vector3<float> white(1.0, 1.0, 1.0);
 
-    while (true)
+    while (!inputManager.CanExit())
     {
         engine.Update();
         scene.Update();
 
         rigidBody.Update();
         spriteManager.Update();
+
         rigidBody.SetBoundingBoxColor(white);
 
         for (int i = 0; i < spriteManager.Count(); i++)
@@ -102,8 +103,7 @@ int main()
         }
         engine.EndRender();
 
-        if (inputManager.CanExit())
-            break;
     }
+
     return 0;
 }

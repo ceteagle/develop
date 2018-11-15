@@ -3,37 +3,39 @@
 using namespace TFC::Engine::Graphics;
 using namespace TFC::Math;
 
+using namespace std;
+
 SpriteManager::SpriteManager()
 {
 }
-
 
 SpriteManager::~SpriteManager()
 {
 }
 
-int SpriteManager::AddSprite(std::string filePath, Vector3<float> pos)
-{
-
-    Sprite sprite = Sprite(filePath, pos);
-    _sprites.push_back(sprite);
-    return _sprites.size()-1;
-}
-
 void SpriteManager::Update()
 {
-    for (size_t i = 0; i < _sprites.size(); i++)
+    vector<Sprite>::iterator iter;
+    for (iter = _sprites.begin(); iter != _sprites.end(); iter++)
     {
-        _sprites[i].Update();
+        iter->Update();
     }
 }
 
 void SpriteManager::Render()
 {
-    for (size_t i = 0; i < _sprites.size(); i++)
+    vector<Sprite>::iterator iter;
+    for (iter = _sprites.begin(); iter != _sprites.end(); iter++)
     {
-        _sprites[i].Render();
+        iter->Render();
     }
+}
+
+int SpriteManager::AddSprite(std::string filePath, Vector3<float> pos)
+{
+    Sprite sprite = Sprite(filePath, pos);
+    _sprites.push_back(sprite);
+    return _sprites.size()-1;
 }
 
 Sprite& SpriteManager::GetSprite(int index)
