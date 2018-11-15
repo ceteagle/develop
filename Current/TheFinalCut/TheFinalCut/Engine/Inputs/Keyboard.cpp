@@ -1,10 +1,12 @@
 #include "Keyboard.h"
 
-bool TFC::Graphics::Keyboard::_keys[GLFW_KEY_LAST] = { 0 };
-bool TFC::Graphics::Keyboard::_keysDown[GLFW_KEY_LAST] = { 0 };
-bool TFC::Graphics::Keyboard::_keysUp[GLFW_KEY_LAST] = { 0 };
+bool TFC::Engine::Inputs::Keyboard::_keys[GLFW_KEY_LAST] = { 0 };
+bool TFC::Engine::Inputs::Keyboard::_keysDown[GLFW_KEY_LAST] = { 0 };
+bool TFC::Engine::Inputs::Keyboard::_keysUp[GLFW_KEY_LAST] = { 0 };
 
-void TFC::Graphics::Keyboard::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
+using namespace TFC::Engine::Inputs;
+
+void Keyboard::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
     if (key < 0)
         return;
@@ -23,21 +25,21 @@ void TFC::Graphics::Keyboard::KeyCallback(GLFWwindow * window, int key, int scan
     _keys[key] = action != GLFW_RELEASE;
 }
 
-bool TFC::Graphics::Keyboard::KeyDown(int key)
+bool Keyboard::KeyDown(int key)
 {
     bool x = _keysDown[key];
     _keysDown[key] = false;
     return x;
 }
 
-bool TFC::Graphics::Keyboard::KeyUp(int key)
+bool Keyboard::KeyUp(int key)
 {
     bool x = _keysUp[key];
     _keysUp[key] = false;
     return x;
 }
 
-bool TFC::Graphics::Keyboard::Key(int key)
+bool Keyboard::Key(int key)
 {
     return _keys[key];
 }

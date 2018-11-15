@@ -3,16 +3,16 @@
 
 #include "Vector3.h"
 
-namespace TFC { namespace Graphics { namespace Physics { class RigidBody; } } }
-namespace TFC { namespace Graphics { class Sprite; } }
+namespace TFC { namespace Engine { namespace Physics { class RigidBody; } } }
+namespace TFC { namespace Engine { namespace Graphics { class Sprite; } } }
 namespace TFC
 {
     namespace Math
     {
         class Rectangle
         {
-            friend class TFC::Graphics::Physics::RigidBody;
-            friend class TFC::Graphics::Sprite;
+            friend class TFC::Engine::Physics::RigidBody;
+            friend class TFC::Engine::Graphics::Sprite;
         public:
             Rectangle();
             Rectangle(Vector3<float> size);

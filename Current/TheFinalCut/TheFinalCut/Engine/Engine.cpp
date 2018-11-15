@@ -1,11 +1,12 @@
 #include "Engine.h"
-#include "Mouse.h"
-#include "Keyboard.h"
+#include "Inputs/Mouse.h"
+#include "Inputs/Keyboard.h"
 
 #include <iostream>
 
 using namespace std;
-using namespace TFC::Graphics;
+using namespace TFC::Engine;
+using namespace TFC::Engine::Inputs;
 
 int Engine::SCREEN_WIDTH = 1024;
 int Engine::SCREEN_HEIGHT = 768;
@@ -21,7 +22,7 @@ Engine::~Engine()
 {
 }
 
-bool TFC::Graphics::Engine::Initialize(const char * title)
+bool Engine::Initialize(const char * title)
 {
     if (!glfwInit())
     {

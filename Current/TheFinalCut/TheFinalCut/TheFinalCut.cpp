@@ -1,39 +1,37 @@
 #include <iostream>
-#include "Graphics/Engine.h"
-#include "Graphics/Sprite.h"
-#include "Graphics/Mouse.h"
-#include "Graphics/Keyboard.h"
-#include "Graphics/Physics/RigidBody.h"
+#include "Engine/Engine.h"
+#include "Managers/Managers.h"
+
 #include "Math/Vector3.h"
-#include "InputManager.h"
-#include "SpriteManager.h"
-#include "SceneManager.h"
 
 #include <stdio.h>  /* defines FILENAME_MAX */
 #include <direct.h>
 #define GetCurrentDir _getcwd
 
 using namespace std;
-using namespace TFC::Graphics;
-using namespace TFC::Graphics::Physics;
+using namespace TFC::Engine;
+using namespace TFC::Engine::Graphics;
+using namespace TFC::Engine::Physics;
 using namespace TFC::Math;
 
 int main()
 {
+    /*===============================================================================*/
+    /*===============================================================================*/
+
     cout << "Welcome to The Final Cut" << endl;
     char cCurrentPath[FILENAME_MAX];
 
     if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath)))
     {
+        cout << "ERROR!  Failed to get current directory" << endl;
         return errno;
     }
 
-    cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
-
+    cCurrentPath[sizeof(cCurrentPath) - 1] = '\0';
     cout << "The current working directory is " << cCurrentPath << endl;
-
-
-
+    /*===============================================================================*/
+    
     Engine engine;
     engine.Initialize("The Final Cut");
 

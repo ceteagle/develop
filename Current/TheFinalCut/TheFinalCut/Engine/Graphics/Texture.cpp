@@ -2,13 +2,14 @@
 #include <iostream>
 
 using namespace std;
+using namespace TFC::Engine::Graphics;
 
-TFC::Graphics::Texture::Texture()
+Texture::Texture()
 {
     _id = -1;
 }
 
-TFC::Graphics::Texture::Texture(int id) : _id(id)
+Texture::Texture(int id) : _id(id)
 {
     if (!GetTextureParams())
     {
@@ -16,7 +17,7 @@ TFC::Graphics::Texture::Texture(int id) : _id(id)
     }
 }
 
-TFC::Graphics::Texture::Texture(std::string path)
+Texture::Texture(std::string path)
 {
     _id = SOIL_load_OGL_texture(path.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MULTIPLY_ALPHA);
     if (!GetTextureParams())
@@ -25,11 +26,11 @@ TFC::Graphics::Texture::Texture(std::string path)
     }
 }
 
-TFC::Graphics::Texture::~Texture()
+Texture::~Texture()
 {
 }
 
-bool TFC::Graphics::Texture::GetTextureParams()
+bool Texture::GetTextureParams()
 {
     if (_id <= 0)
         return false;

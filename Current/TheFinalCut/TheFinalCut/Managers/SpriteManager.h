@@ -2,7 +2,7 @@
 #define __SPRITEMANAGER__H__
 
 #include <string>
-#include "Graphics/Sprite.h"
+#include "../Engine/Graphics/Sprite.h"
 
 class SpriteManager
 {
@@ -11,14 +11,14 @@ public:
     ~SpriteManager();
 
     int AddSprite(std::string filePath, TFC::Math::Vector3<float> pos);
-    TFC::Graphics::Sprite& GetSprite(int index);
+    TFC::Engine::Graphics::Sprite& GetSprite(int index);
     int Count();
 
     void Update();
     void Render();
 
 private:
-    std::vector<TFC::Graphics::Sprite> _sprites;
+    std::vector<TFC::Engine::Graphics::Sprite> _sprites;
 
 };
 

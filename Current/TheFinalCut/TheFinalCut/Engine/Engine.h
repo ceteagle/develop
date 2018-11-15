@@ -4,9 +4,14 @@
 #include "GLFW/glfw3.h"
 #pragma comment(lib, "opengl32.lib")
 
+#include "Graphics/Sprite.h"
+#include "Inputs/Mouse.h"
+#include "Inputs/Keyboard.h"
+#include "Physics/RigidBody.h"
+
 namespace TFC
 {
-    namespace Graphics
+    namespace Engine
     {
         class Engine
         {
@@ -30,7 +35,6 @@ namespace TFC
             static float _deltaTime;
             float _lastTime;
         };
-
     }
 }
 

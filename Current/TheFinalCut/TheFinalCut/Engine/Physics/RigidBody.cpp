@@ -3,8 +3,8 @@
 #include <iostream>
 
 using namespace std;
-using namespace TFC::Graphics;
-using namespace TFC::Graphics::Physics;
+using namespace TFC::Engine::Graphics;
+using namespace TFC::Engine::Physics;
 
 RigidBody::RigidBody()
 {
@@ -21,7 +21,7 @@ RigidBody::RigidBody(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sp
     Initialize();
 }
 
-void TFC::Graphics::Physics::RigidBody::Initialize()
+void RigidBody::Initialize()
 {
     _gravity = 0.0;
     _friction = 1.0;

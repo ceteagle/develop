@@ -1,8 +1,8 @@
 #include "Sprite.h"
-#include "Engine.h"
+#include "../Engine.h"
 
 using namespace TFC::Math;
-using namespace TFC::Graphics;
+using namespace TFC::Engine::Graphics;
 
 Sprite::Sprite() :
     _rotation(0.0), _speed(100.0)
@@ -17,7 +17,7 @@ Sprite::Sprite(std::string imagePath) : Sprite()
     _boundingBox.SetSize(GetSize());
 }
 
-Sprite::Sprite(std::string imagePath, TFC::Math::Vector3<float>& pos) : Sprite(imagePath)
+Sprite::Sprite(std::string imagePath, Vector3<float>& pos) : Sprite(imagePath)
 {
     _boundingBox._position = pos;
 }
@@ -129,12 +129,12 @@ Vector3<float> Sprite::GetSize()
     return Vector3<float>((float)_texture.GetWidth(), (float)_texture.GetHeight(), 0.0f);
 }
 
-void Sprite::SetBoundingBoxColor(TFC::Math::Vector3<float>& color)
+void Sprite::SetBoundingBoxColor(Vector3<float>& color)
 {
     _boundingBox._color = color;
 }
 
-TFC::Math::Rectangle & Sprite::GetBoundingBox()
+Rectangle & Sprite::GetBoundingBox()
 {
     return _boundingBox;
 }

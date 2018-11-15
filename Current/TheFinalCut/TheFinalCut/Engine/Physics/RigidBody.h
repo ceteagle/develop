@@ -1,15 +1,15 @@
 #ifndef __RIGIDBODY__H__
 #define __RIGIDBODY__H__
 
-#include "../Sprite.h"
+#include "../Graphics/Sprite.h"
 
 namespace TFC
 {
-    namespace Graphics
+    namespace Engine
     {
         namespace Physics
         {
-            class RigidBody : public Sprite
+            class RigidBody : public Engine::Graphics::Sprite
             {
             public:
                 RigidBody();
