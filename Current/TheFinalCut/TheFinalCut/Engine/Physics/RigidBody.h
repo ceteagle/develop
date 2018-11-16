@@ -19,7 +19,7 @@ namespace TFC
                 ~RigidBody();
 
                 void Update();
-                void Render(TFC::Math::Vector3<float> color);
+                void Render();
 
                 void SetGravity(float gravity);
                 void SetFriction(float friction);

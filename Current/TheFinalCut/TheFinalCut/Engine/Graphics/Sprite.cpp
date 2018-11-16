@@ -72,12 +72,12 @@ void Sprite::SpeedBy(float speed)
     _speed += speed;
 }
 
-void Sprite::MoveTo(Vector3<float>& v)
+void Sprite::MoveTo(Vector3<float> v)
 {
     _boundingBox._position = v;
 }
 
-void Sprite::MoveBy(Vector3<float>& v)
+void Sprite::MoveBy(Vector3<float> v)
 {
     _boundingBox._position += Vector3<float>(v*Engine::GetDeltaTime());
 }
@@ -98,7 +98,7 @@ void Sprite::SetScale(float x)
     _boundingBox.SetScale(x*1.1f);
 }
 
-void Sprite::SetScale(Vector3<float>& v)
+void Sprite::SetScale(Vector3<float> v)
 {
     _scale = v;
     _boundingBox.SetScale(v);

@@ -152,11 +152,11 @@
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Math\Rectangle.cpp" />
     <ClCompile Include="Managers\SceneManager.cpp" />
-    <ClCompile Include="Managers\SpriteManager.cpp" />
     <ClCompile Include="TheFinalCut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Graphics\Colors.h" />
     <ClInclude Include="Engine\Physics\RigidBody.h" />
     <ClInclude Include="Engine\Graphics\Texture.h" />
     <ClInclude Include="Engine\Graphics\Sprite.h" />
@@ -168,7 +168,6 @@
     <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Managers\SceneManager.h" />
-    <ClInclude Include="Managers\SpriteManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

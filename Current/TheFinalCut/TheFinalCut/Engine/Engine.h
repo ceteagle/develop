@@ -9,6 +9,9 @@
 #include "Inputs/Keyboard.h"
 #include "Physics/RigidBody.h"
 
+#define WASD_PLAYER 0x0001
+#define IJKL_PLAYER 0x0002
+
 namespace TFC
 {
     namespace Engine

@@ -45,61 +45,48 @@ int main()
     Vector3<float> pos(100., 100., 0.0);
     Vector3<float> staticpos(220., 220., 0.0);
 
-    auto rigidBody = RigidBody(".\\Assets\\Images\\img_test.png", pos);
-    rigidBody.SetGravity(9.8f);
-    rigidBody.SetFriction(0.9f);
-    rigidBody.SetScale(0.25f);
-    rigidBody.SpeedTo(300.0);
-        
-    auto inputManager = InputManager(&rigidBody);
-    auto spriteManager = SpriteManager();
+    auto playerIndex = scene.CreatePlayer(".\\Assets\\Images\\img_test.png", pos);
+    pos += Vector3<float>(100.0, 0.0, 0.0);
+    auto playerIndex2 = scene.CreatePlayer(".\\Assets\\Images\\img_test.png", pos);
 
-    auto idx = spriteManager.AddSprite(".\\Assets\\Images\\img_test.png", staticpos);
-    Sprite& sprite1 = spriteManager.GetSprite(idx);
+    auto spriteIndex1 = scene.CreateSprite(".\\Assets\\Images\\img_test.png", staticpos);
+    staticpos += Vector3<float>(400., 0.0, 0.0);
+    auto spriteIndex2 = scene.CreateSprite(".\\Assets\\Images\\artificialPlanet.png", staticpos);
+
+    RigidBody& player = scene.GetPlayer(playerIndex);
+    player.SetGravity(9.8f);
+    player.SetFriction(0.9f);
+    player.SetScale(0.25f);
+    player.SpeedTo(300.0);
+        
+    RigidBody& player2 = scene.GetPlayer(playerIndex2);
+    player2.SetGravity(9.8f);
+    player2.SetFriction(0.9f);
+    player2.SetScale(0.25f);
+    player2.SpeedTo(300.0);
+
+    Sprite& sprite1 = scene.GetSprite(spriteIndex1);
     sprite1.SetScale(0.5f);
     sprite1.RotateTo(45.0f);
-
-    staticpos += Vector3<float>(400., 0.0, 0.0);
     
-    idx = spriteManager.AddSprite(".\\Assets\\Images\\artificialPlanet.png", staticpos);
-    Sprite& sprite = spriteManager.GetSprite(idx);
+    Sprite& sprite = scene.GetSprite(spriteIndex2);
     sprite.SetScale(0.10f);
     sprite.RotateTo(30.0f);
 
-    Vector3<float> red(1.0, 0.0, 0.0);
-    Vector3<float> white(1.0, 1.0, 1.0);
+    auto inputManager = InputManager(&player, WASD_PLAYER);
+    auto inputManager2 = InputManager(&player2, IJKL_PLAYER);
 
     while (!inputManager.CanExit())
     {
         engine.Update();
         scene.Update();
 
-        rigidBody.Update();
-        spriteManager.Update();
-
-        rigidBody.SetBoundingBoxColor(white);
-
-        for (int i = 0; i < spriteManager.Count(); i++)
-        {
-            if (rigidBody.GetBoundingBox().CollidesWith(spriteManager.GetSprite(i).GetBoundingBox()))
-            {
-                spriteManager.GetSprite(i).SetBoundingBoxColor(red);
-                rigidBody.SetBoundingBoxColor(red);
-            }
-            else
-            {
-                spriteManager.GetSprite(i).SetBoundingBoxColor(white);
-            }
-        }
-
         inputManager.Update();
+        inputManager2.Update();
 
         engine.BeginRender();
         {
             scene.Render();
-
-            spriteManager.Render();
-            rigidBody.Render(Vector3<float>(1.0, 1.0, 1.0));
         }
         engine.EndRender();
 

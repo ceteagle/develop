@@ -9,7 +9,6 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Managers\InputManager.cpp" />
     <ClCompile Include="Managers\SceneManager.cpp" />
-    <ClCompile Include="Managers\SpriteManager.cpp" />
     <ClCompile Include="Engine\Inputs\Keyboard.cpp" />
     <ClCompile Include="Engine\Inputs\Mouse.cpp" />
   </ItemGroup>
@@ -26,10 +25,10 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Managers\InputManager.h" />
     <ClInclude Include="Managers\SceneManager.h" />
-    <ClInclude Include="Managers\SpriteManager.h" />
     <ClInclude Include="Engine\Inputs\Keyboard.h" />
     <ClInclude Include="Engine\Inputs\Mouse.h" />
     <ClInclude Include="Managers\Managers.h" />
+    <ClInclude Include="Engine\Graphics\Colors.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Engine\Graphics\SOIL\lib\SOIL.lib" />

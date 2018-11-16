@@ -6,7 +6,7 @@
 class InputManager
 {
 public:
-    InputManager(TFC::Engine::Physics::RigidBody * rigidbody);
+    InputManager(TFC::Engine::Physics::RigidBody * rigidbody, int keyboardInput);
     ~InputManager();
 
     void Update();
@@ -14,6 +14,7 @@ public:
 
 private:
     TFC::Engine::Physics::RigidBody * _rigidbody;
+    int _keyboardInput;
     bool _exit;
 };
 

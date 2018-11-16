@@ -52,7 +52,7 @@ void RigidBody::Update()
     RotateTo((45.f / 750.f) * _velocity.y);
 }
 
-void RigidBody::Render(Vector3<float> color)
+void RigidBody::Render()
 {
     Sprite::Render();
 }

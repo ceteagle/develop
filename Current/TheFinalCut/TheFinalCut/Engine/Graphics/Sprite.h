@@ -31,14 +31,14 @@ namespace TFC
                 void SpeedTo(float speed);
                 void SpeedBy(float speed);
 
-                void MoveTo(TFC::Math::Vector3<float>& v);
-                void MoveBy(TFC::Math::Vector3<float>& v);
+                void MoveTo(TFC::Math::Vector3<float> v);
+                void MoveBy(TFC::Math::Vector3<float> v);
 
                 void RotateTo(float rotation);
                 void RotateBy(float rotation);
 
                 void SetScale(float s);
-                void SetScale(TFC::Math::Vector3<float>& v);
+                void SetScale(TFC::Math::Vector3<float> v);
 
                 void MoveLeft();
                 void MoveRight();
