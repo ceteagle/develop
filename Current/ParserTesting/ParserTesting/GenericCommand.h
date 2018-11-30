@@ -16,7 +16,7 @@ struct GenericCommand : Command, IGenericCommand {
         if (m_arguments.empty())
             const_cast<GenericCommand*>(this)->FillArguments();
 
-        return m_arguments.size();
+        return static_cast<int>(m_arguments.size());
     }
 
     const Field* Argument(int index) const override

@@ -13,7 +13,7 @@ struct CONTINUE_Actor
         m_DatabaseHelper(databaseHelper)
     {}
 
-    void operator()(CommandGrammar::ContinueAttrType const& attr, qi::unused_type, qi::unused_type) const
+    void operator()(CommandGrammar::ContinueAttrType const& attr, boost::spirit::qi::unused_type, boost::spirit::qi::unused_type) const
     {
         std::string contStr = std::string(boost::fusion::at_c<0>(attr).begin(), boost::fusion::at_c<0>(attr).end());
         std::map<std::string, CommandContinueInfo>::iterator iter = m_DatabaseHelper.m_continueCommandMap.find(contStr);
@@ -22,7 +22,7 @@ struct CONTINUE_Actor
 
         CommandPtr& ptrCmd = iter->second.m_pCommand;
         m_Container.Visit(ptrCmd, iter->second.m_NextFieldIndex, attr);
-        iter->second.m_NextFieldIndex += boost::fusion::at_c<1>(attr).size();
+        iter->second.m_NextFieldIndex += static_cast<int>(boost::fusion::at_c<1>(attr).size());
 
         contStr = "";
         if (boost::fusion::at_c<2>(attr))

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/spirit/include/qi.hpp>
-#include "fixed_width.hpp"
+#include "qi_extensions.hpp"
 #include <vector>
 
 namespace qi = boost::spirit::qi;
