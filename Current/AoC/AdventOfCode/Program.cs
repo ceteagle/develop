@@ -75,7 +75,11 @@ namespace AdventOfCode
 
     }
 
-
+    public class Coords
+    {
+        public int x;
+        public int y;
+    }
     class Program
     {
         
@@ -1560,8 +1564,41 @@ namespace AdventOfCode
 
             #region DAY6
 
-            string[] lines = System.IO.File.ReadAllLines(@"..\..\day6.txt");
+            char[] delimiterChars = {  ',' };
 
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\day6.txt");
+            List<Coords> coords = new List<Coords>();
+            foreach (var line in lines)
+            {
+                string[] d = line.Split(delimiterChars);
+                coords.Add(new Coords() { x = Int32.Parse(d[0]), y = Int32.Parse(d[1]) });
+            }
+
+            foreach (var coord in coords)
+            {
+                Console.WriteLine("{0} , {1}", coord.x, coord.y);
+            }
+
+            int minx = int.MaxValue;
+            int maxx = int.MinValue;
+
+            int miny = int.MaxValue;
+            int maxy = int.MinValue;
+
+            foreach (var coord in coords)
+            {
+                if (coord.x < minx)
+                    minx = coord.x;
+                if (coord.x > maxx)
+                    maxx = coord.x;
+
+                if (coord.y < miny)
+                    miny = coord.y;
+                if (coord.y > maxy)
+                    maxy = coord.y;
+            }
+
+            Console.WriteLine("Max x {0} Min x {1}  Max y {2} Min y {3}", maxx, minx, maxy, miny);
             #endregion
         }
     }
