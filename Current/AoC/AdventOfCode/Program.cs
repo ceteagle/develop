@@ -1697,14 +1697,7 @@ namespace AdventOfCode
             //    Console.WriteLine("Coord with most is {0} with {1} points ({2},{3})", idWithMaxPoints, maxNumPoints, coord.x, coord.y);
             //}
 
-            // Part 2
-            //
-
-            //int minx = int.MaxValue;
-            //int maxx = int.MinValue;
-
-            //int miny = int.MaxValue;
-            //int maxy = int.MinValue;
+            //// Part 2
 
             //foreach (var coord in coords)
             //{
@@ -1721,10 +1714,6 @@ namespace AdventOfCode
 
 
             //int maxDistance = 10000;
-
-            //Dictionary<CoordInfo, List<CoordInfo>> gridDistMap = new Dictionary<CoordInfo, List<CoordInfo>>();
-
-
 
             //List<Coord> possiblePoints = new List<Coord>();
 
@@ -1748,28 +1737,11 @@ namespace AdventOfCode
             //            ccc.y = y;
             //            possiblePoints.Add(ccc);
             //        }
-            //        //CoordInfo ci = new CoordInfo();
-            //        //ci.x = x;
-            //        //ci.y = y;
-            //        //gridDistMap[ci] = l;
             //    }
             //}
 
             //Console.WriteLine("possible points size {0}", possiblePoints.Count);
 
-            //foreach (var item in possiblePoints)
-            //{
-
-            //}
-            //int max = 0;
-            //foreach (var item in gridDistMap)
-            //{
-            //    if (item.Value.Count > max)
-            //        max = item.Value.Count;
-            //    //Console.WriteLine("{0},{1} ==> {2}", item.Key.x, item.Key.y, item.Value.Count);
-            //}
-
-            //Console.WriteLine("Max count {0}", max); 
             #endregion
 
 
