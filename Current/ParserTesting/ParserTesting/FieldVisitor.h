@@ -43,7 +43,7 @@ public:
         if (m_field->m_DoublePtr != NULL)
             *(m_field->m_DoublePtr) = i;
         else if (m_field->m_FloatPtr != NULL)
-            *(m_field->m_FloatPtr) = i;
+            *(m_field->m_FloatPtr) = static_cast<float>(i);
     }
 
     void operator()(const std::vector<char>& str) const

@@ -9,6 +9,12 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\Actors">
+      <UniqueIdentifier>{90a4c250-53b6-49a7-aacf-b17803908d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Grammars">
+      <UniqueIdentifier>{5a6cdf94-f58a-47b1-983f-29f5318b07fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,9 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qi_extensions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="COMMAND_Actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CommandsContainer.h">
@@ -46,12 +49,6 @@
     <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CommandGrammar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fixed_width.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FieldVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,12 +56,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Field.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SKIP_Actor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CONTINUE_Actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseHelper.hpp">
@@ -82,11 +73,23 @@
     <ClInclude Include="GenericCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Grammar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PCOMPCommand.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="COMMAND_Actor.hpp">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="CONTINUE_Actor.hpp">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="SKIP_Actor.hpp">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandGrammar.h">
+      <Filter>Header Files\Grammars</Filter>
+    </ClInclude>
+    <ClInclude Include="Grammar.hpp">
+      <Filter>Header Files\Grammars</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

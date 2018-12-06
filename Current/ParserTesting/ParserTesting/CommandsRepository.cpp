@@ -22,10 +22,10 @@ void AddProcessedCommandsToVector(std::vector<std::string>& processedCommandName
 
 bool IsProcessedGenericCommand(const std::string& commandName)
 {
-    return	(stricmp(commandName.c_str(), "CROD") == 0) ||
-        (stricmp(commandName.c_str(), "PROD") == 0) ||
-        (stricmp(commandName.c_str(), "PBEAM") == 0) ||
-        (stricmp(commandName.c_str(), "RBE3") == 0);
+    return	(_stricmp(commandName.c_str(), "CROD") == 0) ||
+        (_stricmp(commandName.c_str(), "PROD") == 0) ||
+        (_stricmp(commandName.c_str(), "PBEAM") == 0) ||
+        (_stricmp(commandName.c_str(), "RBE3") == 0);
 }
 
 void CommandsRepository::AddGenericCommandsToMap()
@@ -127,13 +127,13 @@ ICollection<ICommand*>* CommandsRepository::GetCommandsByName(const char* name)
 
 int CommandsRepository::GetCommandNamesCount(eFECommandsType eCommandsType)
 {
-    int count = 0;
+    size_t count = 0;
     if ((eCommandsType & eFECommandsUnProcessed) == eFECommandsUnProcessed)
         count += m_UnProcessedCommands.size();
     if ((eCommandsType & eFECommandsProcessed) == eFECommandsProcessed)
         count += m_ProcessedCommands.size();
 
-    return count;
+    return static_cast<int>(count);
 }
 
 const char* CommandsRepository::GetCommandName(eFECommandsType eCommandsType, int index)
@@ -147,7 +147,7 @@ const char* CommandsRepository::GetCommandName(eFECommandsType eCommandsType, in
         else                                                    // Command is processed command
         {
             eCommandsType = eFECommandsProcessed;
-            index -= m_UnProcessedCommands.size();
+            index -= static_cast<int>(m_UnProcessedCommands.size());
         }
     }
 

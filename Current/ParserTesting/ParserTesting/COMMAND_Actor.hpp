@@ -5,8 +5,6 @@
 #include "CommandGrammar.h"
 #include "DatabaseHelper.hpp"
 
-
-
 struct CommandsContainer;
 
 struct COMMAND_Actor
