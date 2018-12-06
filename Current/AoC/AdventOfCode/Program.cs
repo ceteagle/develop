@@ -68,21 +68,33 @@ namespace AdventOfCode
 
     public static class Helper
     {
-        public static float ManhattanDistance(int x1, int x2, int y1, int y2)
+        public static int ManhattanDistance(int x1, int x2, int y1, int y2)
         {
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
         }
 
     }
 
-    public class Coords
+    public class Coord
     {
         public int x;
         public int y;
     }
+
+    public class CoordInfo: Coord
+    {
+        public int id;
+    }
+
+    public class Grid
+    {
+        public int closestCoord;
+        public int distance;
+    }
+
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             #region DAY1
@@ -1564,43 +1576,221 @@ namespace AdventOfCode
 
             #region DAY6
 
-            char[] delimiterChars = {  ',' };
+            //char[] delimiterChars = { ',' };
+            //int currId = 0;
 
-            string[] lines = System.IO.File.ReadAllLines(@"..\..\day6.txt");
-            List<Coords> coords = new List<Coords>();
-            foreach (var line in lines)
-            {
-                string[] d = line.Split(delimiterChars);
-                coords.Add(new Coords() { x = Int32.Parse(d[0]), y = Int32.Parse(d[1]) });
-            }
+            //string[] lines = System.IO.File.ReadAllLines(@"..\..\day6.txt");
+            //List<CoordInfo> coords = new List<CoordInfo>();
+            //foreach (var line in lines)
+            //{
+            //    string[] d = line.Split(delimiterChars);
+            //    coords.Add(new CoordInfo() { id = currId++, x = Int32.Parse(d[0]), y = Int32.Parse(d[1]) });
+            //}
 
-            foreach (var coord in coords)
-            {
-                Console.WriteLine("{0} , {1}", coord.x, coord.y);
-            }
+            //foreach (var coord in coords)
+            //{
+            //    Console.WriteLine("{0}: {1},{2}", coord.id, coord.x, coord.y);
+            //}
 
-            int minx = int.MaxValue;
-            int maxx = int.MinValue;
+            //int minx = int.MaxValue;
+            //int maxx = int.MinValue;
 
-            int miny = int.MaxValue;
-            int maxy = int.MinValue;
+            //int miny = int.MaxValue;
+            //int maxy = int.MinValue;
 
-            foreach (var coord in coords)
-            {
-                if (coord.x < minx)
-                    minx = coord.x;
-                if (coord.x > maxx)
-                    maxx = coord.x;
+            //foreach (var coord in coords)
+            //{
+            //    if (coord.x < minx)
+            //        minx = coord.x;
+            //    if (coord.x > maxx)
+            //        maxx = coord.x;
 
-                if (coord.y < miny)
-                    miny = coord.y;
-                if (coord.y > maxy)
-                    maxy = coord.y;
-            }
+            //    if (coord.y < miny)
+            //        miny = coord.y;
+            //    if (coord.y > maxy)
+            //        maxy = coord.y;
+            //}
 
-            Console.WriteLine("Max x {0} Min x {1}  Max y {2} Min y {3}", maxx, minx, maxy, miny);
+            //Console.WriteLine("Max x {0} Min x {1}  Max y {2} Min y {3}", maxx, minx, maxy, miny);
+
+            //Grid[,] grid = new Grid[maxx + 1, maxy + 1];
+            //for (int y = miny; y < maxy; y++)
+            //{
+            //    for (int x = minx; x < maxx; x++)
+            //    {
+            //        grid[x, y] = new Grid() { closestCoord = -1, distance = int.MaxValue };
+            //    }
+            //}
+
+
+            //for (int y = miny; y < maxy; y++)
+            //{
+            //    for (int x = minx; x < maxx; x++)
+            //    {
+            //        // Find closest input coord
+            //        foreach (var coord in coords)
+            //        {
+            //            if (coord.x == x && coord.y == y)
+            //            {
+            //                grid[x, y].distance = 0;
+            //                grid[x, y].closestCoord = coord.id;
+            //                break;
+            //            }
+            //            int distance = Helper.ManhattanDistance(coord.x, x, coord.y, y);
+            //            if (distance < grid[x, y].distance)
+            //            {
+            //                // Closer
+            //                grid[x, y].distance = distance;
+            //                grid[x, y].closestCoord = coord.id;
+            //            }
+            //            else if (distance == grid[x, y].distance)
+            //            {
+            //                grid[x, y].closestCoord = -999;
+            //            }
+            //        }
+            //    }
+            //}
+            //bool printGrid = false;
+            //if (printGrid)
+            //{
+            //    for (int y = miny; y < maxy; y++)
+            //    {
+            //        for (int x = minx; x < maxx; x++)
+            //        {
+            //            Console.Write("{0} ", grid[x, y].closestCoord == -999 ? '.' : grid[x, y].closestCoord);
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //}
+
+            //// Loop over grid data finding what id has most points
+            //Dictionary<int, int> gridStatus = new Dictionary<int, int>();
+            //foreach (var coord in coords)
+            //{
+            //    gridStatus[coord.id] = 0;
+            //}
+            //for (int y = miny; y < maxy; y++)
+            //{
+            //    for (int x = minx; x < maxx; x++)
+            //    {
+            //        if (grid[x, y].closestCoord == -999)
+            //            continue;
+            //        gridStatus[grid[x, y].closestCoord]++;
+            //    }
+            //}
+
+            //int idWithMaxPoints = -1;
+            //int maxNumPoints = 0;
+            //foreach (var item in gridStatus)
+            //{
+            //    if (item.Value > maxNumPoints)
+            //    {
+            //        maxNumPoints = item.Value;
+            //        idWithMaxPoints = item.Key;
+            //    }
+            //}
+
+            //foreach (var coord in coords)
+            //{
+            //    if (coord.id != idWithMaxPoints)
+            //        continue;
+            //    Console.WriteLine("Coord with most is {0} with {1} points ({2},{3})", idWithMaxPoints, maxNumPoints, coord.x, coord.y);
+            //}
+
+            // Part 2
+            //
+
+            //int minx = int.MaxValue;
+            //int maxx = int.MinValue;
+
+            //int miny = int.MaxValue;
+            //int maxy = int.MinValue;
+
+            //foreach (var coord in coords)
+            //{
+            //    if (coord.x < minx)
+            //        minx = coord.x;
+            //    if (coord.x > maxx)
+            //        maxx = coord.x;
+
+            //    if (coord.y < miny)
+            //        miny = coord.y;
+            //    if (coord.y > maxy)
+            //        maxy = coord.y;
+            //}
+
+
+            //int maxDistance = 10000;
+
+            //Dictionary<CoordInfo, List<CoordInfo>> gridDistMap = new Dictionary<CoordInfo, List<CoordInfo>>();
+
+
+
+            //List<Coord> possiblePoints = new List<Coord>();
+
+            //for (int y = miny; y < maxy; y++)
+            //{
+            //    for (int x = minx; x < maxx; x++)
+            //    {
+            //        List<CoordInfo> l = new List<CoordInfo>();
+
+            //        // Find closest input coord
+            //        int totalDistance = 0;
+            //        foreach (var coord in coords)
+            //        {
+            //            totalDistance += Helper.ManhattanDistance(coord.x, x, coord.y, y);
+            //        }
+
+            //        if (totalDistance < maxDistance)
+            //        {
+            //            Coord ccc = new Coord();
+            //            ccc.x = x;
+            //            ccc.y = y;
+            //            possiblePoints.Add(ccc);
+            //        }
+            //        //CoordInfo ci = new CoordInfo();
+            //        //ci.x = x;
+            //        //ci.y = y;
+            //        //gridDistMap[ci] = l;
+            //    }
+            //}
+
+            //Console.WriteLine("possible points size {0}", possiblePoints.Count);
+
+            //foreach (var item in possiblePoints)
+            //{
+
+            //}
+            //int max = 0;
+            //foreach (var item in gridDistMap)
+            //{
+            //    if (item.Value.Count > max)
+            //        max = item.Value.Count;
+            //    //Console.WriteLine("{0},{1} ==> {2}", item.Key.x, item.Key.y, item.Value.Count);
+            //}
+
+            //Console.WriteLine("Max count {0}", max); 
             #endregion
+
+
+            #region DAY7
+            #endregion
+
+            #region DAY8
+            #endregion
+
+            #region DAY9
+            #endregion
+
+            #region DAY10
+            #endregion
+
+            #region DAY11
+            #endregion
+
         }
     }
 }
 
+
+ 
