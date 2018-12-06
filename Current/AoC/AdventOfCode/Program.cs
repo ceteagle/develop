@@ -66,50 +66,11 @@ namespace AdventOfCode
         }
     }
 
-    public class Helper
+    public static class Helper
     {
-        public int RemoveDups(ref Stack<char> cstack)
+        public static float ManhattanDistance(int x1, int x2, int y1, int y2)
         {
-            int numPops = 0;
-            Stack<char> newstack = new Stack<char>();
-            foreach (char c in cstack)
-            {
-                newstack.Push(c);
-                bool b = true;
-                while (b)
-                {
-                    if (newstack.Count <= 1)
-                        break;
-
-                    if (Char.ToUpper(c) == c)
-                    {
-                        char cc = newstack.Pop();
-                        // c is upper case
-                        if (newstack.First() == Char.ToLower(c))
-                        {
-                            newstack.Pop();
-                            numPops++;
-                            continue;
-                        }
-                        newstack.Push(cc);
-                    }
-                    else if (Char.ToLower(c) == c)
-                    {
-                        char cc = newstack.Pop();
-                        // c is lower case
-                        if (newstack.First() == Char.ToUpper(c))
-                        {
-                            newstack.Pop();
-                            numPops++;
-                            continue;
-                        }
-                        newstack.Push(cc);
-                    }
-                    b = false;
-                }
-            }
-            cstack = newstack;
-            return numPops;
+            return Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
         }
 
     }
@@ -1529,11 +1490,6 @@ namespace AdventOfCode
             //    }
             //}
 
-            ////Helper h = new Helper();
-            ////while(h.RemoveDups(ref cstack) != 0 )
-            ////{
-
-            ////}
             //string answer = string.Empty;
             //foreach (var item in cstack)
             //{
