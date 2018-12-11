@@ -26,3 +26,9 @@ while loop:
         loop = False
     #take out or change this line to speed up / slow down the display
     time.sleep(0.05)
+	
+os.system("cls")
+time.sleep(0.1)
+height = height - 1
+print("\n" * height + " " * offset + "\|/")
+time.sleep(2)
