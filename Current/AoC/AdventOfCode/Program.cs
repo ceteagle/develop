@@ -168,6 +168,10 @@ namespace AdventOfCode
             #endregion
 
             #region DAY11
+
+            Day11 day11 = new Day11();
+            day11.Run();
+
             #endregion
 
             #region DAY12
