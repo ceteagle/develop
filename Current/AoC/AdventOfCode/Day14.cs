@@ -32,7 +32,8 @@ namespace AdventOfCode
 
         public void Run()
         {
-            for (int i = 0; i < 16; i++)
+            int recipecount = 0;
+            while(recipecount < 5)
             {
                 PrintScores();
                 int score = _recipes[_elf1.scoreidx] + _recipes[_elf2.scoreidx];
@@ -42,33 +43,23 @@ namespace AdventOfCode
                 {
                     newscore1 = score / 10;
                     newscore2 = score % 10;
+                    _recipes.Add(newscore1);
+                    _recipes.Add(newscore2);
                 }
                 else
                 {
                     newscore1 = score;
                     newscore2 = 0;
+                    _recipes.Add(newscore1);
+
                 }
 
-                _recipes.Add(newscore1);
-                _recipes.Add(newscore2);
-
-                int elf1idx = _elf1.scoreidx + 1 + _recipes[_elf1.scoreidx];
-                int elf2idx = _elf2.scoreidx + 1 + _recipes[_elf2.scoreidx];
-
-                while(elf1idx >= _recipes.Count)
-                {
-                    elf1idx = elf1idx - _recipes.Count;
-                }
-
-                while (elf2idx >= _recipes.Count)
-                {
-                    elf2idx = elf2idx - _recipes.Count;
-                }
+                int elf1idx = (_elf1.scoreidx + 1 + _recipes[_elf1.scoreidx])%_recipes.Count;
+                int elf2idx = (_elf2.scoreidx + 1 + _recipes[_elf2.scoreidx])%_recipes.Count;
 
                 _elf1.scoreidx = elf1idx;
                 _elf2.scoreidx = elf2idx;
-
-                
+                recipecount++;
             }
             PrintScores();
         }
