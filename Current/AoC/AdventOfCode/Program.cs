@@ -190,12 +190,16 @@ namespace AdventOfCode
 
             #region DAY14
 
-            Day14 day14 = new Day14();
-            day14.Run();
+            //Day14 day14 = new Day14();
+            //day14.Run();
 
             #endregion
 
             #region DAY15
+
+            Day15 day15 = new Day15();
+            day15.Run();
+
             #endregion
 
             #region DAY16

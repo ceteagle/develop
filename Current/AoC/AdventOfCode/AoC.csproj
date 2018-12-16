@@ -68,6 +68,7 @@
     <Compile Include="Day12.cs" />
     <Compile Include="Day13.cs" />
     <Compile Include="Day14.cs" />
+    <Compile Include="Day15.cs" />
     <Compile Include="Day2.cs" />
     <Compile Include="Day3.cs" />
     <Compile Include="Day4.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepInstruction.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
