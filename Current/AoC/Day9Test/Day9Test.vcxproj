@@ -147,10 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Day14.cpp" />
     <ClCompile Include="Day9Test.cpp" />
     <ClCompile Include="Marble.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Day14.h" />
     <ClInclude Include="Marble.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
