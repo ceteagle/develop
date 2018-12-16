@@ -19,6 +19,7 @@ namespace AdventOfCode
         {
             Type = type;
             HitPoints = 200;
+            AttackPower = 3;
             Targeting = null;
         }
 
@@ -40,24 +41,25 @@ namespace AdventOfCode
         }
         public int HitPoints { get; set; }
         public Unit Targeting { get; set; }
+        public int AttackPower { get; set; }
     }
     class Day15
     {
         public Day15()
         {
-            units = new List<Unit>();
-            round = 0;
         }
         public int width { get; set; }
         public int height { get; set; }
 
-        public void Run()
+        private void Init()
         {
             string[] lines = System.IO.File.ReadAllLines(@"..\..\day15.txt");
             //string[] lines = System.IO.File.ReadAllLines(@"..\..\d15sample.txt");
             width = lines[0].Length;
             height = lines.Length;
 
+            round = 0;
+            units = new List<Unit>();
             map = new char[lines[0].Length, lines.Length];
             int x = 0;
             int y = 0;
@@ -83,9 +85,53 @@ namespace AdventOfCode
                 y++;
             }
 
+        }
+        public void Run()
+        {
+            int attackPowerPlus = 1;
+
+            while (true)
+            {
+                Init();
+                foreach (var unit in units)
+                {
+                    if (unit.Type != UnitType.Elf)
+                        continue;
+                    unit.AttackPower += attackPowerPlus;
+                }
+                while (!Victory())
+                {
+                    //PrintMap();
+                    DoRound();
+                    if (ElfDied())
+                        break;
+                    //System.Threading.Thread.Sleep(10);
+                    //Console.ReadKey();
+                }
+                if (!ElfDied())
+                    break;
+                attackPowerPlus++;
+            }
+
+            int hpsum = 0;
+            PrintMap();
+            foreach (var unit in units)
+            {
+                if (!unit.IsAlive)
+                    continue;
+                hpsum += unit.HitPoints;
+            }
+            Console.WriteLine();
+            Console.WriteLine("Part 2 Answer = {0}", round * hpsum);
+        }
+
+        public void Part1()
+        {
+            Init();
+
             while (!Victory())
             {
-                PrintMap();
+                //PrintMap();
                 DoRound();
                 //System.Threading.Thread.Sleep(10);
                 //Console.ReadKey();
@@ -99,6 +145,7 @@ namespace AdventOfCode
                     continue;
                 hpsum += unit.HitPoints;
             }
+            Console.WriteLine();
             Console.WriteLine("Part 1 Answer = {0}", round * hpsum);
         }
 
@@ -114,6 +161,18 @@ namespace AdventOfCode
                 targets.Add(u);
             }
             return targets.OrderBy(u => u.Y).ThenBy(u => u.X).ToList();
+        }
+
+        private bool ElfDied()
+        {
+            foreach (var unit in units)
+            {
+                if (unit.Type != UnitType.Elf)
+                    continue;
+                if (unit.IsAlive == false)
+                    return true;
+            }
+            return false;
         }
 
         private bool Victory()
@@ -187,7 +246,7 @@ namespace AdventOfCode
                     if (closest == 1)
                     {
                         var a = closestUnits.OrderBy(u => u.HitPoints).ThenBy(u => u.Y).ThenBy(u => u.X).ToList();
-                        a[0].HitPoints -= 3;
+                        a[0].HitPoints -= unit.AttackPower;
                         unit.Targeting = a[0];
                     }
                     else
@@ -203,7 +262,7 @@ namespace AdventOfCode
                         }
                         if (closest == 2)
                         {
-                            unit.Targeting.HitPoints -= 3;
+                            unit.Targeting.HitPoints -= unit.AttackPower;
                         }
                     }
                 }
