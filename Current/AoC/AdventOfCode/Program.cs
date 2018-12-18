@@ -204,13 +204,17 @@ namespace AdventOfCode
 
             #region DAY16
 
-            Day16 day16 = new Day16();
+            //Day16 day16 = new Day16();
             //day16.Part1();
-            day16.Part2();
+            //day16.Part2();
 
             #endregion
 
             #region DAY17
+
+            Day17 day17 = new Day17();
+            day17.Part1();
+
             #endregion
 
             #region DAY18
