@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
-
-    class Water : Coord
+    public enum CellType
     {
-        public Water(char display = '~')
+        Wall,
+        Running,
+        Rest,
+        Dropping
+    }
+
+    class WaterBlock : Coord
+    {
+        public WaterBlock(char display = '~')
         {
-            Moving = true;
             c = display;
-            Filling = false;
-            Prev = null;
         }
 
         private char c { get; set; }
@@ -23,14 +26,40 @@ namespace AdventOfCode
         {
             get
             {
-                return (Moving ? '|' : c);
+                if (IsDropping)
+                    return '|';
+                else if (AtRest)
+                    return '~';
+                else if (IsRunning)
+                    return '^';
+                else return '?';
             }
         }
 
-        public Water Prev { get; set; }
-        public bool Moving { get; set; }
-        public bool Filling { get; set; }
+        public CellType Type { get; set; }
+        public bool IsDropping
+        {
+            get
+            {
+                return (Type == CellType.Dropping);
+            }
+        }
+        public bool AtRest
+        {
+            get
+            {
+                return (Type == CellType.Rest);
+            }
+        }
+        public bool IsRunning
+        {
+            get
+            {
+                return (Type == CellType.Running);
+            }
+        }
     }
+
     class Day17
     {
         List<Coord> clay;
@@ -38,30 +67,33 @@ namespace AdventOfCode
         int xmax;
         int ymin;
         int ymax;
-        Water waterSource;
-        List<Water> water;
-        List<Water> runningWater;
+        List<WaterBlock> water;
+
         char[,] ground;
-        public bool WaterRunning { get; set; }
+
         public int LoopCounter { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        bool[,] flowhandled;
+
         public Day17()
         {
             clay = new List<Coord>();
-            runningWater = new List<Water>();
             LoopCounter = 0;
             xmin = ymin = Int32.MaxValue;
             xmax = ymax = Int32.MinValue;
 
-            water = new List<Water>();
-            waterSource = new Water('+') { x = 500, y = 0, Filling = true };
-            water.Add(waterSource);
-            runningWater.Add(waterSource);
-            WaterRunning = true;
+            water = new List<WaterBlock>();
+            water.Add(new WaterBlock('+') { x = 500, y = 0, Type = CellType.Dropping });
         }
-
 
         public void Part1()
         {
+            // Part 1 - ANSWER SHOULD BE 38409
+            //
+            // Part 2 - ANSWER SHOULD BE 32288
+            //
             //x = 495, y = 2..7
             //y = 7, x = 495..501
             //x = 501, y = 3..7
@@ -139,36 +171,154 @@ namespace AdventOfCode
                     ymax = yend;
             }
 
-            xmax++;
-            ymax++;
-
+            // Add some additional x values in case flow goes beyond clay x max
+            xmax += 10;
             InitGround();
 
-            //Draw();
-
-            while (WaterRunning)
+            Console.WriteLine("xmax {0}   ymax {1}   xmin {2}   ymin {3}", xmax, ymax, xmin, ymin);
+            flowhandled = new bool[xmax + 1, ymax + 1];
+            for (int y = 0; y <= ymax; y++)
             {
-                UpdateWater();
-                //Draw();
-                if (runningWater.Count() > 2)
+                for (int x = 0; x <= xmax; x++)
                 {
-                    //Draw();
-                    //Console.ReadKey();
+                    flowhandled[x, y] = false;
                 }
-                LoopCounter++;
             }
 
+            Fill(500, 0);
+
+            Console.WriteLine("Created {0} water cells", water.Count() - ymin);
+            Console.WriteLine("Resting water cells = {0}", water.Count(u=>u.Type == CellType.Rest));
             //Draw();
-            Console.WriteLine("Number of water cells = {0} ==> Loop Counter = {1}", water.Count() - 1, LoopCounter);
+            CompressWater();
             WriteToFile();
+        }
+
+        private void Fill(int x, int y)
+        {
+            if (x > xmax || y > ymax)
+                return;
+            if (flowhandled[x, y] == true)
+                return;
+            flowhandled[x, y] = true;
+
+            int yhit = HitCheck(x, y);
+            if (yhit > ymax)
+                return;
+
+            yhit--;
+            while (true)
+            {
+                int xl = 0;
+                int xr = 0;
+                CellType left = ScanRow(x, yhit, -1, ref xl);
+                CellType right = ScanRow(x, yhit, 1, ref xr);
+
+                if (left == CellType.Wall && right == CellType.Wall)
+                {
+                    for (int i = xl + 1; i < xr; i++)
+                    {
+                        WaterBlock w = water.Find(u => u.x == i && u.y == yhit);
+                        if (w == null)
+                        {
+                            w = new WaterBlock() { x = i, y = yhit, Type = CellType.Rest };
+                            ground[w.x, w.y] = w.Display;
+                            water.Add(w);
+                        }
+                        else
+                        {
+                            w = water.Find(u => u.x == i && u.y == yhit);
+                            w.Type = CellType.Rest;
+                            ground[w.x, w.y] = w.Display;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = xl + 1; i < xr; i++)
+                    {
+                        WaterBlock w = water.Find(u => u.x == i && u.y == yhit);
+                        if (w == null)
+                        {
+                            w = new WaterBlock() { x = i, y = yhit, Type = CellType.Running };
+                            ground[w.x, w.y] = w.Display;
+                            water.Add(w);
+                        }
+                        else
+                        {
+                            w = water.Find(u => u.x == i && u.y == yhit);
+                            w.Type = CellType.Running;
+                            ground[w.x, w.y] = w.Display;
+                        }
+                    }
+                    if (left == CellType.Dropping)
+                        Fill(xl, yhit);
+
+                    if (right == CellType.Dropping)
+                        Fill(xr, yhit);
+                    break;
+                }
+                yhit--;
+                if (yhit > ymax)
+                    break;
+            }
+        }
+
+        private int HitCheck(int x, int y)
+        {
+            while (true)
+            {
+                if (ground[x, y] == '#')
+                    return y;
+                if (ground[x, y] == '~' && water.Find(u => u.x == x && u.y == y).AtRest)
+                    return y;
+
+                var w = water.Find(u => u.x == x && u.y == y);
+                if (w == null)
+                {
+                    w = new WaterBlock() { x = x, y = y, Type = CellType.Running };
+                    ground[w.x, w.y] = w.Display;
+                    water.Add(w);
+                }
+                else
+                {
+                    w.Type = CellType.Running;
+                    ground[w.x, w.y] = w.Display;
+                }
+
+                y++;
+                if (y > ymax)
+                    return ymax;
+            }
+        }
+
+        private CellType ScanRow(int x, int y, int dir, ref int xval)
+        {
+            while (true)
+            {
+                if (ground[x, y] == '#')
+                {
+                    xval = x;
+                    return CellType.Wall;
+                }
+                else if (ground[x, y + 1] != '#' && (water.Find(u => u.x == x && u.y == y + 1) == null || !water.Find(u => u.x == x && u.y == y + 1).AtRest))
+                {
+                    xval = x;
+                    return CellType.Dropping;
+                }
+                x += dir;
+            }
         }
 
         private void InitGround()
         {
-            ground = new char[xmax + 1, ymax + 1];
-            for (int y = 0; y <= ymax; y++)
+            Width = xmax + 10;
+            Height = ymax + 10;
+
+            ground = new char[Width, Height];
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = xmin; x <= xmax; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     ground[x, y] = '.';
                 }
@@ -180,295 +330,17 @@ namespace AdventOfCode
             }
         }
 
-        private void UpdateWater()
-        {
-            var newRunningWater = new List<Water>();
-            Dictionary<int, bool> added = new Dictionary<int, bool>();
-
-            foreach (var last in runningWater)
-            {
-                if (last.y >= ymax || last.x >= xmax || last.Moving == false)
-                    continue;
-                char nextLevel = ground[last.x, last.y + 1];
-
-                if (nextLevel == '.')
-                {
-                    if (last.y + 1 <= ymax)
-                    {
-                        last.Filling = false;
-                        var w = new Water() { x = last.x, y = last.y + 1, Filling = true };
-                        w.Prev = last;
-                        water.Add(w);
-                        newRunningWater.Add(w);
-                    }
-                }
-                else if (nextLevel == '#' || nextLevel == '~')
-                {
-                    if(nextLevel == '~')
-                    {
-                        // Check to see if this has already been filled by another stream
-                        //
-
-                        int xval = last.x;
-                        int yplus1 = last.y + 1;
-                        // Find #
-                        //
-                        while (ground[xval, yplus1] != '.')
-                        {
-                            xval++;
-                        }
-                        if (water.Find(u => u.x == xval && u.y == yplus1) != null && ground[xval-1,last.y] == '.')
-                            continue;
-                        xval = last.x;
-                        while (ground[xval, yplus1] != '.')
-                        {
-                            xval--;
-                        }
-                        if (water.Find(u => u.x == xval && u.y == yplus1) != null && ground[xval+1,last.y] == '.')
-                            continue;
-                        //    if(runningWater.FindAll(u => u.y > last.y).Count() > 0)
-                        //    {
-                        //        continue;
-                        //    }
-                    }
-                    // Fill up row until dropoff
-                    //
-
-                    // Go Left
-                    //
-                    int left = last.x;
-                    while (!(ground[left - 1, last.y] == '#' || ground[left - 1, last.y] == '~' || !(water.FindAll(u => u.x == left - 1 && u.y == last.y && u.Moving).Count() == 0)))
-                    {
-                        if (ground[left - 1, last.y + 1] == '.')
-                            break;
-                        left--;
-                    }
-
-                    // Go Right
-                    //
-                    int right = last.x;
-                    while (!(ground[right + 1, last.y] == '#' || ground[right + 1, last.y] == '~' || !(water.FindAll(u => u.x == right + 1 && u.y == last.y && u.Moving).Count() == 0)))
-                    {
-                        if (ground[right + 1, last.y + 1] == '.')
-                            break;
-                        right++;
-                    }
-
-                    //if (nextLevel == '~')
-                    //{
-                    //    if (ground[left, last.y + 1] == '#' && (ground[right, last.y + 1] != '#' && water.FindAll(u=>u.x == right && u.y == last.y+1 && u.Moving).Count() > 0))
-                    //    {
-                    //        if (water.FindAll(u => u.x == right + 1 && u.y == last.y + 1).Count() > 0)
-                    //            continue;
-                    //    }
-                    //    else if ((ground[left, last.y + 1] != '#' && water.FindAll(u=>u.x == left && u.y == last.y+1 && u.Moving).Count() > 0) && ground[right, last.y + 1] == '#')
-                    //    {
-                    //        if (water.FindAll(u => u.x == left - 1 && u.y == last.y + 1).Count() > 0)
-                    //            continue;
-                    //    }
-                    //}
-
-                    for (int i = left; i < last.x; i++)
-                    {
-                        int x = i;
-                        int y = last.y;
-                        if (water.FindAll(u => u.x == x && u.y == y).Count() == 0)
-                        {
-                            var w = new Water() { x = i, y = last.y, Moving = false };
-                            ground[w.x, w.y] = w.Display;
-                            water.Add(w);
-                        }
-                    }
-                    for (int i = last.x + 1; i <= right; i++)
-                    {
-                        int x = i;
-                        int y = last.y;
-
-                        if (water.FindAll(u => u.x == x && u.y == y).Count() == 0)
-                        {
-                            var w = new Water() { x = i, y = last.y, Moving = false };
-                            ground[w.x, w.y] = w.Display;
-                            water.Add(w);
-                        }
-                    }
-
-                    last.Moving = false;
-                    ground[last.x, last.y] = last.Display;
-
-                    //if (runningWater.FindAll(u => u.y == last.y && u.x != last.x).Count() > 0)
-                    //    continue;
-                    if (ground[left - 1, last.y + 1] == '.')
-                    {
-                        int x = left - 1;
-                        int y = last.y;
-                        if (water.FindAll(u => u.x == x && u.y == y).Count() == 0)
-                        {
-                            var w = new Water() { x = x, y = last.y };
-                            water.Add(w);
-                            newRunningWater.Add(w);
-                            added[last.y] = true;
-                        }
-                    }
-
-                    if (ground[right + 1, last.y + 1] == '.')
-                    {
-                        int x = right + 1;
-                        int y = last.y;
-                        if (water.FindAll(u => u.x == x && u.y == y).Count() == 0)
-                        {
-                            var w = new Water() { x = x, y = y };
-                            water.Add(w);
-                            newRunningWater.Add(w);
-                            added[last.y] = true;
-                        }
-                    }
-
-                    bool b = false;
-                    if (added.ContainsKey(last.y))
-                        b = added[last.y];
-                    if (!b)
-                    {
-                        var prev = water.Find(u => u.x == last.x && u.y == last.y - 1);
-                        if (prev == null)
-                        {
-                            // Find #
-                            //
-                            while (ground[right, last.y] != '#' && ground[right, last.y] != '~')
-                            {
-                                right++;
-                            }
-                            while (ground[left, last.y] != '#' && ground[left, last.y] != '~')
-                            {
-                                left--;
-                            }
-                            if(last.x == right)
-                            {
-                                prev = water.Find(u => u.y == last.y - 1 && u.x > left && u.Moving);
-                            }
-                            else if (last.x == left)
-                            {
-                                prev = water.Find(u => u.y == last.y - 1 && u.x < right && u.Moving);
-                            }
-                            else
-                            {
-                                prev = water.Find(u => u.y == last.y - 1 && (u.x > left && u.x < right) && u.Moving);
-                            }
-                            
-                            if (prev != null)
-                            {
-                                newRunningWater.Add(prev);
-                                added[last.y] = true;
-                            }
-                        }
-                        else
-                            newRunningWater.Add(prev);
-                    }
-                    //// If left and right are clay or non moving water then stop moving
-                    //if ((ground[last.x - 1, last.y] == '#' || ground[last.x - 1, last.y] == '~') && (ground[last.x + 1, last.y] == '#' || ground[last.x + 1, last.y] == '~'))
-                    //{
-                    //    last.Moving = false;
-                    //    last.Filling = false;
-                    //    ground[last.x, last.y] = last.Display;
-                    //    //if (ground[last.x - 1, last.y - 1] != '#' && ground[last.x + 1, last.y - 1] != '#')
-                    //    //{
-                    //    //}
-
-                    //    //var allmoving = water.FindAll(u => u.Moving);
-                    //    //allmoving.OrderBy(u => u.y);
-                    //    //allmoving.Reverse();
-                    //    //foreach (var item in allmoving)
-                    //    //{
-                    //    //    if (runningWater.Contains(item))
-                    //    //        continue;
-
-                    //    //    newRunningWater.Add(item);
-                    //    //    break;
-                    //    //}
-                    //    var row = runningWater.FindAll(u => u.y == last.y);
-                    //    if (row.Count() == 1)
-                    //    {
-                    //        var w = last.Prev;
-                    //        while (w != null && !w.Moving)
-                    //        {
-                    //            w = w.Prev;
-                    //            if( w.y < (last.y-1))
-                    //            {
-                    //                w = null;
-                    //                break;
-                    //            }
-                    //        }
-                    //        if (w != null)
-                    //            newRunningWater.Add(w);
-                    //    }
-
-                    //    if(row.Count() > 1)
-                    //    {
-                    //        if( row.FindAll(u => u.Moving).Count() == 0)
-                    //        {
-                    //            var w = last.Prev;
-                    //            while (w != null && !w.Moving)
-                    //            {
-                    //                w = w.Prev;
-                    //                if (w.y < (last.y - 1))
-                    //                {
-                    //                    w = null;
-                    //                    break;
-                    //                }
-                    //            }
-                    //            if (w != null)
-                    //                newRunningWater.Add(w);
-                    //        }
-                    //    }
-                    // }
-                    //else
-                    //{
-                    //    // Fill left and right of current location
-                    //    //
-                    //    if (ground[last.x - 1, last.y] == '.')
-                    //    {
-                    //        last.Moving = false;
-                    //        ground[last.x, last.y] = last.Display;
-                    //        var w = new Water() { x = last.x - 1, y = last.y };
-                    //        w.Prev = last;
-                    //        water.Add(w);
-                    //        newRunningWater.Add(w);
-                    //    }
-                    //    if (ground[last.x + 1, last.y] == '.')
-                    //    {
-                    //        last.Moving = false;
-                    //        ground[last.x, last.y] = last.Display;
-
-                    //        var w = new Water() { x = last.x + 1, y = last.y };
-                    //        w.Prev = last;
-                    //        water.Add(w);
-                    //        newRunningWater.Add(w);
-                    //    }
-                    //}
-                }
-            }
-            if (newRunningWater.Count() == 0)
-                WaterRunning = false;
-            runningWater = newRunningWater;
-        }
-
         private void WriteToFile()
         {
-            char[,] display = new char[xmax + 1, ymax + 1];
-            for (int y = 0; y <= ymax; y++)
+            Console.Write("Writing file day17output.xls");
+
+            char[,] display = new char[Width, Height];
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = xmin; x <= xmax; x++)
+                for (int x = xmin; x < Width; x++)
                 {
                     display[x, y] = ground[x, y];
                 }
-            }
-
-            display[waterSource.x, waterSource.y] = '+';
-
-            // Overlay water
-            //
-            foreach (var w in water)
-            {
-                display[w.x, w.y] = w.Display;
             }
 
             string output = string.Empty;
@@ -476,10 +348,10 @@ namespace AdventOfCode
             using (System.IO.StreamWriter file =
             new System.IO.StreamWriter(@"day17output.xls"))
             {
-                for (int y = 0; y <= ymax; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     output = string.Empty;
-                    for (int x = xmin; x <= xmax; x++)
+                    for (int x = xmin; x < Width; x++)
                     {
                         output += display[x, y];
                         output += '\t';
@@ -487,85 +359,22 @@ namespace AdventOfCode
                     if (y == ymin)
                         output += "<== YMIN";
                     if (y == ymax)
-                        output += "  <<== YMAX";
+                        output += "<<== YMAX";
                     file.WriteLine(output);
                 }
             }
+            Console.WriteLine("...Finished");
         }
 
-        public void Draw()
+        public void Draw(int ymin, int ymax)
         {
-            int sxmin = Int32.MaxValue;
-            int sxmax = Int32.MinValue;
-            int symin = Int32.MaxValue;
-            int symax = Int32.MinValue;
-
-            foreach (var item in runningWater)
-            {
-                if (item.x > sxmax)
-                    sxmax = item.x;
-                if (item.x < sxmin)
-                    sxmin = item.x;
-
-                if (item.y > symax)
-                    symax = item.y;
-                if (item.y < symin)
-                    symin = item.y;
-            }
-
-            int buffer = 30;
-            sxmin -= buffer;
-            sxmax += buffer;
-            symin -= buffer;
-            symax += buffer;
-
-            if (sxmin < xmin)
-                sxmin = xmin;
-            if (sxmax > xmax)
-                sxmax = xmax;
-
-            if (symin < ymin)
-                symin = ymin;
-            if (symax > ymax)
-                symax = ymax;
-
             Console.Clear();
 
-            char[,] display = new char[sxmax - sxmin + 1, symax - symin + 1];
-            for (int y = symin; y <= symax; y++)
+            for (int y = ymin; y < ymax; y++)
             {
-                for (int x = sxmin; x <= sxmax; x++)
+                for (int x = xmin - 10; x < Width; x++)
                 {
-                    display[x - sxmin, y - symin] = ground[x, y];
-                }
-            }
-
-            //char[,] display = new char[xmax + 1, ymax + 1];
-            //for (int y = 0; y <= ymax; y++)
-            //{
-            //    for (int x = xmin; x <= xmax; x++)
-            //    {
-            //        display[x, y] = ground[x, y];
-            //    }
-            //}
-
-            //display[waterSource.x, waterSource.y] = '+';
-
-            // Overlay water
-            //
-            foreach (var w in water)
-            {
-                if (w.x >= sxmin && w.x < sxmax && w.y >= symin && w.y < symax)
-                    display[w.x - sxmin, w.y - symin] = w.Display;
-            }
-
-            // Draw
-            //
-            for (int y = 0; y <= symax - symin; y++)
-            {
-                for (int x = 0; x <= sxmax - sxmin; x++)
-                {
-                    Console.Write(display[x, y]);
+                    Console.Write(ground[x, y]);
                 }
                 if (y == 0) Console.Write("Loop {0} ", LoopCounter);
 
@@ -575,18 +384,42 @@ namespace AdventOfCode
                     Console.Write("  <<== YMAX");
                 Console.WriteLine();
             }
-            //for (int y = 0; y <= ymax; y++)
-            //{
-            //    for (int x = xmin; x <= xmax; x++)
-            //    {
-            //        Console.Write(display[x, y]);
-            //    }
-            //    if (y == ymin)
-            //        Console.Write("  <<== YMIN");
-            //    if (y == ymax)
-            //        Console.Write("  <<== YMAX");
-            //    Console.WriteLine();
-            //}
         }
+
+        public void Draw()
+        {
+            Console.Clear();
+
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = xmin - 10; x < Width; x++)
+                {
+                    Console.Write(ground[x, y]);
+                }
+                if (y == 0) Console.Write("Loop {0} ", LoopCounter);
+
+                if (y == ymin)
+                    Console.Write("  <<== YMIN");
+                if (y == ymax)
+                    Console.Write("  <<== YMAX");
+                Console.WriteLine();
+            }
+        }
+        private void CompressWater()
+        {
+            List<WaterBlock> duplicates = new List<WaterBlock>();
+            var running = water.FindAll(u => u.IsRunning);
+            foreach (var item in running.OrderBy(u => u.y))
+            {
+                //Console.WriteLine("{0},{1}", item.x, item.y);
+                if (water.FindAll(u => u.x == item.x && u.y == item.y).Count() != 1)
+                {
+                    if (!duplicates.Contains(item))
+                        duplicates.Add(item);
+                }
+            }
+            Console.WriteLine("Found {0} duplicates", duplicates.Count());
+        }
+
     }
 }
