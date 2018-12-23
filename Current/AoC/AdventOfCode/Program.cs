@@ -212,12 +212,17 @@ namespace AdventOfCode
 
             #region DAY17
 
-            Day17 day17 = new Day17();
-            day17.Part1();
+            //Day17 day17 = new Day17();
+            //day17.Part1();
 
             #endregion
 
             #region DAY18
+
+            Day18 day18 = new Day18();
+            day18.Part1();
+            day18.Part2();
+
             #endregion
 
             #region DAY19
